@@ -1,0 +1,41 @@
+//
+//  VectorTL.hpp
+//  Ninja
+//
+//  Created by Edison Shiobara on 03/09/26.
+//
+
+#ifndef VECTORTL_HPP
+#define VECTORTL_HPP
+
+#include <iostream>
+//adaptado de Burda Canal do vídeo 2
+template<typename TL>
+class Coord{
+    public:
+        TL x;
+        TL y;
+
+        Coord(TL x, TL y);
+        Coord();
+        ~Coord(){ }
+        
+        TL getX() const { return x; }
+        TL getY() const { return y; } // Para fins de debug
+
+};
+
+typedef Coord<double> CoordD;
+typedef Coord<int> CoordI;
+typedef Coord<float>CoordF;
+
+template <typename TL>
+Coord<TL>::Coord(TL x, TL y): x(x),y(y){ } //inicializadora com valores
+
+template <typename TL>
+Coord<TL>::Coord(){
+    this->x = 0;
+    this->y = 0; //valores default
+}
+
+#endif
