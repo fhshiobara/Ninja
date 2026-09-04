@@ -14,6 +14,8 @@
 class Jogador:public Personagem{
 protected:
     int pontos;
+    bool atacando;
+    bool andando;
 public:
     Jogador();
     ~Jogador();
@@ -21,7 +23,10 @@ public:
     void atacar();
     
     void update(float dt) override;
-    void executar();
+    void executar() override;
+    
+    bool estaAtacando();
+    bool estaAndando();
 };
 
 #endif /* Jogador_hpp */
