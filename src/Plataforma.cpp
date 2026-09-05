@@ -8,10 +8,10 @@
 #include "Plataforma.hpp"
 
 Plataforma::Plataforma():ativa(true){
-    this->setTam(CoordF(500.f,100.f));
-    this->setPos(CoordF(600.f,500.f));
+    this->setTam(CoordF(1300.f,100.f));
+    this->setPos(CoordF(150.f,500.f));
     hitbox = new sf::RectangleShape;
-    hitbox->setSize(sf::Vector2f(500.f,100.f));
+    hitbox->setSize(sf::Vector2f(1300.f,100.f));
     hitbox->setOrigin(0.f,0.f);
     hitbox->setPosition(pos.x, pos.y);
     hitbox->setFillColor(sf::Color::Blue);

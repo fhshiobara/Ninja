@@ -7,7 +7,7 @@
 
 #include "Jogador.hpp"
 
-Jogador::Jogador():pontos(0),andandoEsquerda(false),andandoDireita(false),atacando(false),tempoAtaque(0.f),pulando(false){
+Jogador::Jogador():pontos(0),andandoEsquerda(false),andandoDireita(false),atacando(false),tempoAtaque(0.f){
     id=1;
     animacao.addNewAnimation(Animation_ID::walk,"../assets/Cavaleiro/RUN.png",8);
     animacao.addNewAnimation(Animation_ID::idle,"../assets/Cavaleiro/IDLE.png",7);
@@ -49,31 +49,36 @@ void Jogador::update(float dt){
         }
     }
 
+    this->atualizarSubida(dt);
+
     Animation_ID estadoAtual;
     if(estaAtacando()){
         estadoAtual = Animation_ID::attack;
     } else if(estaAndando()){
         estadoAtual = Animation_ID::walk;
-    }
-    
-    else if(!nochao){
+    } else if(!nochao){
         estadoAtual = Animation_ID::jump;
-        
-    }else {
+    } else {
         estadoAtual = Animation_ID::idle;
     }
 
     animacao.update(estadoAtual, olhandoesquerda, pos, dt);
 }
 void Jogador::executar(){
-    nochao=false;
-    this->gravidade();
+    nochao = false;
+
+    if(this->getSubindo()){
+        this->mover();
+    } else {
+        this->gravidade();
+    }
+
     if(andandoDireita){
-        this->vel.x = 2.f;
+        this->vel.x = 1.5f;
         this->mover();
     }
     if(andandoEsquerda){
-        this->vel.x = -2.f;
+        this->vel.x = -1.5f;
         this->mover();
     }
 }
@@ -87,18 +92,5 @@ void Jogador::atacar(){
 }
 
 void Jogador::pular(){
-    pulando = true;
-    for(int i=0;i<40;i++){
-        this->setPos(CoordF(getPos().x,getPos().y+i));
-        this->sincronizar();
-    }
-    
-}
-
-void Jogador::setPulando(bool a){
-    pulando =a;
-}
-
-bool Jogador::getPulando(){
-    return pulando;
+    this->iniciarSubida(0.35f,1.f);
 }

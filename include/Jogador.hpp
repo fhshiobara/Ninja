@@ -17,7 +17,6 @@ protected:
     bool atacando;
     bool andandoDireita;
     bool andandoEsquerda;
-    bool pulando;
     float tempoAtaque;
 public:
     Jogador();
@@ -34,8 +33,6 @@ public:
     void setAndandoDireita(bool a);
     void setAndandoEsquerda(bool a);
     
-    void setPulando(bool a);
-    bool getPulando();
 };
 
 #endif /* Jogador_hpp */

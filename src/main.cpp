@@ -23,7 +23,7 @@ int main(){
                     jogador.setAndandoEsquerda(true);
                 }
                 else if(evento.key.code == sf::Keyboard::Z){
-                    jogador.setPulando(true);
+                    jogador.pular();
                 }
                 else if(evento.key.code == sf::Keyboard::X){
                     jogador.atacar();

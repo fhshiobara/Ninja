@@ -16,6 +16,8 @@ protected:
     int hp;
     bool vivo;
     bool nochao;
+    bool subindo;
+    float tempoSubida;
 public:
     Personagem();
     ~Personagem();
@@ -27,6 +29,10 @@ public:
     void gravidade();
     
     void aterrissar();
+    
+    void iniciarSubida(float tempo,float velocidade);
+    void atualizarSubida(float dt);
+    bool getSubindo();
     
     
 

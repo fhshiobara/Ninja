@@ -6,7 +6,7 @@
 //
 
 #include "Personagem.hpp"
-Personagem::Personagem():hp(3),vivo(true),nochao(true){
+Personagem::Personagem():hp(3),vivo(true),nochao(true),subindo(false),tempoSubida(0.f){
     
 }
 
@@ -32,5 +32,29 @@ void Personagem::gravidade(){
 void Personagem::aterrissar(){
     nochao = true;
     this->frearVertical();
+}
+
+void Personagem::iniciarSubida(float tempo,float velocidade){
+    if(nochao && !subindo){
+        subindo = true;
+        tempoSubida = tempo;
+        vel.y = velocidade * (-1);
+        nochao = false;
+    }
+    
+}
+
+void Personagem::atualizarSubida(float dt){
+    if(subindo){
+        tempoSubida = tempoSubida-dt;
+        if(tempoSubida<=0.f){
+            subindo = false;
+            vel.y=0.f;
+        }
+    }
+}
+
+bool Personagem::getSubindo(){
+    return subindo;
 }
 
