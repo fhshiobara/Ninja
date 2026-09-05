@@ -44,15 +44,17 @@ void Plataforma::obstruir(Jogador* pJog){
     CoordF posPlat = this->getPos();
     CoordF tamPlat = this->getTam();
 
+        // Jogador: pos é o CENTRO do sprite (Animation centraliza a origem)
     float esqJog   = posJog.x - tamJog.x / 2.f;
     float dirJog   = posJog.x + tamJog.x / 2.f;
     float topoJog  = posJog.y - tamJog.y / 2.f;
     float baseJog  = posJog.y + tamJog.y / 2.f;
 
-    float esqPlat  = posPlat.x - tamPlat.x / 2.f;
-    float dirPlat  = posPlat.x + tamPlat.x / 2.f;
-    float topoPlat = posPlat.y - tamPlat.y / 2.f;
-    float basePlat = posPlat.y + tamPlat.y / 2.f;
+        // Plataforma: pos é o CANTO SUPERIOR ESQUERDO (hitbox usa origin 0,0)
+    float esqPlat  = posPlat.x;
+    float dirPlat  = posPlat.x + tamPlat.x;
+    float topoPlat = posPlat.y;
+    float basePlat = posPlat.y + tamPlat.y;
 
     bool sobrepondoX = dirJog > esqPlat && esqJog < dirPlat;
     bool sobrepondoY = baseJog > topoPlat && topoJog < basePlat;
@@ -102,3 +104,9 @@ void Plataforma::obstruir(Jogador* pJog){
 }//funcao feita pelo claude
 
 void Plataforma::update(float dt){}
+
+void Plataforma::render(){
+    if(hitbox){
+        pGG->render(hitbox);
+    }
+}
