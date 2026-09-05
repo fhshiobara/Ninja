@@ -30,6 +30,11 @@ public:
     virtual void render();
     
     CoordF getPos();
+    void setPos(CoordF p);
+    
+    void frearHorizontal();
+    void frearVertical();
+    void frear();
 };
 
 #endif /* Entidade_hpp */

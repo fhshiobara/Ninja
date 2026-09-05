@@ -26,6 +26,8 @@ public:
     
     void gravidade();
     
+    void aterrissar();
+    
     
 
     

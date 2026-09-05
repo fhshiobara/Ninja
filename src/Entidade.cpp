@@ -33,3 +33,19 @@ void Entidade::render(){
 CoordF Entidade::getPos(){
     return pos;
 }
+
+void Entidade::setPos(CoordF p){
+    pos = p;
+}
+
+void Entidade::frearVertical(){
+    vel.y = 0.f;
+}
+
+void Entidade::frearHorizontal(){
+    vel.x=0.f;
+}
+void Entidade::frear(){
+    frearHorizontal();
+    frearVertical();
+}

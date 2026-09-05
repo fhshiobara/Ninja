@@ -27,6 +27,8 @@ public:
     void desenhar();
     virtual void executar()=0;
     void criarHitbox();
+    CoordF getTam();
+    void setTam(CoordF t);
 };
 
 #endif /* Ente_hpp */

@@ -38,3 +38,11 @@ void Ente::criarHitbox(){
     hitbox->setOutlineThickness(1.0f);
 }
 
+CoordF Ente::getTam(){
+    return tam;
+}
+
+void Ente::setTam(CoordF t){
+    tam =t;
+}
+

@@ -1,8 +1,10 @@
 #include <iostream>
 #include "Jogador.hpp"
+#include "Plataforma.hpp"
 
 int main(){
     Jogador jogador;
+    Plataforma plat;
 
     sf::Clock relogio;
 
@@ -37,8 +39,12 @@ int main(){
         float dt = relogio.restart().asSeconds();
         jogador.update(dt);
         jogador.executar();
+        
+        plat.obstruir(&jogador);
+        
 
         pGraphicM->clear();
+        plat.render();
         jogador.render();
         pGraphicM->display();
     }

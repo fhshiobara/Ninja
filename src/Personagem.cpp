@@ -29,4 +29,8 @@ void Personagem::gravidade(){
     }
 }
 
+void Personagem::aterrissar(){
+    nochao = true;
+    this->frearVertical();
+}
 

@@ -16,6 +16,7 @@ Jogador::Jogador():pontos(0),andandoEsquerda(false),andandoDireita(false),atacan
     //pos = CoordF(960.f,900.f);
     pos= CoordF(600,300);
     this->nochao = false;
+    this->setTam(CoordF(64.f,64.f));
 }
 Jogador::~Jogador(){}
 
@@ -57,6 +58,7 @@ void Jogador::update(float dt){
     animacao.update(estadoAtual, olhandoesquerda, pos, dt);
 }
 void Jogador::executar(){
+    nochao=false;
     this->gravidade();
     if(andandoDireita){
         this->vel.x = 3.f;
