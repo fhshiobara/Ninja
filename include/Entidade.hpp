@@ -28,6 +28,8 @@ public:
     
     virtual void update(float dt)=0;
     virtual void render();
+    
+    CoordF getPos();
 };
 
 #endif /* Entidade_hpp */

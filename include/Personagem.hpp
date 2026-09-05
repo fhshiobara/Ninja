@@ -24,6 +24,8 @@ public:
     
     virtual void executar()=0;
     
+    void gravidade();
+    
     
 
     

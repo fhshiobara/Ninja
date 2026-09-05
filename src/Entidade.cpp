@@ -29,3 +29,7 @@ void Entidade::mover(){
 void Entidade::render(){
     animacao.render();
 }
+
+CoordF Entidade::getPos(){
+    return pos;
+}

@@ -7,7 +7,7 @@
 
 #include "Animation.hpp"
 
-const float Animation::SingleAnimation::switchTime = 0.2; // tempo entre frames
+const float Animation::SingleAnimation::switchTime = 0.13; // tempo entre frames
 
 Animation::Animation() : body(), animationMap(), currentID(Animation_ID::walk) {
     body.setScale(sf::Vector2f(2.0, 2.0));

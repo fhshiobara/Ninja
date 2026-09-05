@@ -15,7 +15,9 @@ class Jogador:public Personagem{
 protected:
     int pontos;
     bool atacando;
-    bool andando;
+    bool andandoDireita;
+    bool andandoEsquerda;
+    float tempoAtaque;
 public:
     Jogador();
     ~Jogador();
@@ -27,6 +29,8 @@ public:
     
     bool estaAtacando();
     bool estaAndando();
+    void setAndandoDireita(bool a);
+    void setAndandoEsquerda(bool a);
 };
 
 #endif /* Jogador_hpp */

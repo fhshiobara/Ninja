@@ -7,31 +7,48 @@
 
 #include "Jogador.hpp"
 
-Jogador::Jogador():pontos(0),andando(false),atacando(false){
+Jogador::Jogador():pontos(0),andandoEsquerda(false),andandoDireita(false),atacando(false),tempoAtaque(0.f){
     id=1;
-    animacao.addNewAnimation(Animation_ID::walk,"../assets/Samurai/RUN.png",16);
-    animacao.addNewAnimation(Animation_ID::idle,"../assets/Samurai/IDLE.png",10);
-    animacao.addNewAnimation(Animation_ID::hurt,"../assets/Samurai/HURT.png",4);
-    animacao.addNewAnimation(Animation_ID::attack,"../assets/Samurai/ATTACK 1.png",7);
+    animacao.addNewAnimation(Animation_ID::walk,"../assets/Cavaleiro/RUN.png",8);
+    animacao.addNewAnimation(Animation_ID::idle,"../assets/Cavaleiro/IDLE.png",7);
+    animacao.addNewAnimation(Animation_ID::hurt,"../assets/Cavaleiro/HURT.png",4);
+    animacao.addNewAnimation(Animation_ID::attack,"../assets/Cavaleiro/ATTACK 3.png",6);
     //pos = CoordF(960.f,900.f);
     pos= CoordF(600,300);
+    this->nochao = false;
 }
 Jogador::~Jogador(){}
 
 bool Jogador::estaAndando(){
-    return andando;
+    return andandoDireita || andandoEsquerda;
 }
 
 bool Jogador::estaAtacando(){
     return atacando;
 }
 
-void Jogador::update(float dt){
-    Animation_ID estadoAtual;
+void Jogador::setAndandoDireita(bool valor){
+    andandoDireita = valor;
+    if(valor){ olhandoesquerda = false; }
+}
 
-    if (Jogador::estaAtacando()) {
+void Jogador::setAndandoEsquerda(bool valor){
+    andandoEsquerda = valor;
+    if(valor){ olhandoesquerda = true; }
+}
+
+void Jogador::update(float dt){
+    if(atacando){
+        tempoAtaque -= dt;
+        if(tempoAtaque <= 0.f){
+            atacando = false;
+        }
+    }
+
+    Animation_ID estadoAtual;
+    if(estaAtacando()){
         estadoAtual = Animation_ID::attack;
-    } else if (estaAndando()) {
+    } else if(estaAndando()){
         estadoAtual = Animation_ID::walk;
     } else {
         estadoAtual = Animation_ID::idle;
@@ -39,5 +56,22 @@ void Jogador::update(float dt){
 
     animacao.update(estadoAtual, olhandoesquerda, pos, dt);
 }
-void Jogador::executar(){}
+void Jogador::executar(){
+    this->gravidade();
+    if(andandoDireita){
+        this->vel.x = 3.f;
+        this->mover();
+    }
+    if(andandoEsquerda){
+        this->vel.x = -3.f;
+        this->mover();
+    }
+}
 
+
+void Jogador::atacar(){
+    if(!atacando){
+        atacando = true;
+        tempoAtaque = 7 * 0.2f;
+    }
+}

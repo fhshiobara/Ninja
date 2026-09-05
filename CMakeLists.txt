@@ -61,6 +61,8 @@ set(SOURCES
     src/Personagem.cpp
     src/Inimigo.cpp
     src/Jogador.cpp
+    src/Obstaculo.cpp
+    src/Plataforma.cpp
     
     
     

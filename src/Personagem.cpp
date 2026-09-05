@@ -22,4 +22,11 @@ void Personagem::tomarDano(){
     
 }
 
+void Personagem::gravidade(){
+    if(!nochao){
+        vel.y = 1.f;
+        this->mover();
+    }
+}
+
 
