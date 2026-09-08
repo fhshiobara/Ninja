@@ -20,7 +20,7 @@ public:
     ~Plataforma();
     
     void executar() override;
-    void obstruir(Jogador* pJog) override;
+    void obstruir(Personagem* pJog) override;
     void update(float dt) override;
     
     void render()override;

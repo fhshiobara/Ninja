@@ -14,9 +14,10 @@ Mago::Mago():experiencia(2){
     animacao.addNewAnimation(Animation_ID::attack2,"../assets/Mago/Attack2.png",8);
     animacao.addNewAnimation(Animation_ID::death,"../assets/Mago/Death.png",7);
     animacao.addNewAnimation(Animation_ID::idle,"../assets/Mago/Idle.png",8);
+    animacao.addNewAnimation(Animation_ID::jump,"../assets/Mago/Jump.png",2);
     pos = CoordF(800,300);
     this->nochao = false;
-    this->setTam(CoordF(64.f,64.f));
+    this->setTam(CoordF(88.f,150.f));
     
 }
 Mago::~Mago(){}

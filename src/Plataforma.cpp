@@ -35,7 +35,7 @@ void Plataforma::executar(){
     pGG->render(hitbox);
 }
 
-void Plataforma::obstruir(Jogador* pJog){
+void Plataforma::obstruir(Personagem* pJog){
     if(!ativa){
         return;
     }

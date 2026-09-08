@@ -7,6 +7,7 @@ int main(){
     Jogador jogador;
     Plataforma plat;
     Mago mago;
+    int i =0;
     
     sf::Clock relogio;
 
@@ -48,6 +49,7 @@ int main(){
         mago.executar();
         
         plat.obstruir(&jogador);
+        plat.obstruir(&mago);
         
 
         pGraphicM->clear();

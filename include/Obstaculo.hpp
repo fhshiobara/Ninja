@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 #include "Entidade.hpp"
-#include "Jogador.hpp"
+#include "Personagem.hpp"
 
 class Obstaculo:public Entidade{
 protected:
@@ -19,7 +19,7 @@ public:
     Obstaculo();
     ~Obstaculo();
     
-    virtual void obstruir(Jogador* pJog)=0;
+    virtual void obstruir(Personagem* pJog)=0;
     virtual void executar()=0;
     
     bool getDanoso();
