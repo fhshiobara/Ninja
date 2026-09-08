@@ -29,6 +29,7 @@ public:
     void executar() override;
     
     bool estaAtacando();
+    bool golpeAereo();
     bool estaAndando();
     void setAndandoDireita(bool a);
     void setAndandoEsquerda(bool a);

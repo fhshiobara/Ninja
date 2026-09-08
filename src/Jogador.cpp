@@ -14,6 +14,7 @@ Jogador::Jogador():pontos(0),andandoEsquerda(false),andandoDireita(false),atacan
     animacao.addNewAnimation(Animation_ID::hurt,"../assets/Cavaleiro/HURT.png",4);
     animacao.addNewAnimation(Animation_ID::attack,"../assets/Cavaleiro/ATTACK 3.png",6);
     animacao.addNewAnimation(Animation_ID::jump,"../assets/Cavaleiro/JUMP.png",5);
+    animacao.addNewAnimation(Animation_ID::attack2,"../assets/Cavaleiro/ATTACK 1.png",6);
     //pos = CoordF(960.f,900.f);
     pos= CoordF(600,300);
     this->nochao = false;
@@ -52,13 +53,16 @@ void Jogador::update(float dt){
     this->atualizarSubida(dt);
 
     Animation_ID estadoAtual;
-    if(estaAtacando()){
+    if(golpeAereo()){
         estadoAtual = Animation_ID::attack;
+    }
+    else if(estaAtacando()){
+        estadoAtual = Animation_ID::attack2;
     } else if(estaAndando()){
         estadoAtual = Animation_ID::walk;
     } else if(!nochao){
         estadoAtual = Animation_ID::jump;
-    } else {
+    }else {
         estadoAtual = Animation_ID::idle;
     }
 
@@ -87,10 +91,14 @@ void Jogador::executar(){
 void Jogador::atacar(){
     if(!atacando){
         atacando = true;
-        tempoAtaque = 7 * 0.2f;
+        tempoAtaque = 6 * 0.15f;
     }
 }
 
 void Jogador::pular(){
-    this->iniciarSubida(0.35f,1.f);
+    this->iniciarSubida(0.50f,1.f);
+}
+
+bool Jogador::golpeAereo(){
+    return (atacando && !nochao);
 }
