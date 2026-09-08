@@ -7,7 +7,7 @@
 
 #include "Jogador.hpp"
 
-Jogador::Jogador():pontos(0),andandoEsquerda(false),andandoDireita(false),atacando(false),tempoAtaque(0.f){
+Jogador::Jogador():pontos(0){
     id=1;
     animacao.addNewAnimation(Animation_ID::walk,"../assets/Cavaleiro/RUN.png",8);
     animacao.addNewAnimation(Animation_ID::idle,"../assets/Cavaleiro/IDLE.png",7);
@@ -22,52 +22,7 @@ Jogador::Jogador():pontos(0),andandoEsquerda(false),andandoDireita(false),atacan
 }
 Jogador::~Jogador(){}
 
-bool Jogador::estaAndando(){
-    return andandoDireita || andandoEsquerda;
-}
 
-bool Jogador::estaAtacando(){
-    return atacando;
-}
-
-void Jogador::setAndandoDireita(bool valor){
-    frearHorizontal();
-    andandoDireita = valor;
-    if(valor){ olhandoesquerda = false; }
-}
-
-void Jogador::setAndandoEsquerda(bool valor){
-    frearHorizontal();
-    andandoEsquerda = valor;
-    if(valor){ olhandoesquerda = true; }
-}
-
-void Jogador::update(float dt){
-    if(atacando){
-        tempoAtaque -= dt;
-        if(tempoAtaque <= 0.f){
-            atacando = false;
-        }
-    }
-
-    this->atualizarSubida(dt);
-
-    Animation_ID estadoAtual;
-    if(golpeAereo()){
-        estadoAtual = Animation_ID::attack;
-    }
-    else if(estaAtacando()){
-        estadoAtual = Animation_ID::attack2;
-    } else if(estaAndando()){
-        estadoAtual = Animation_ID::walk;
-    } else if(!nochao){
-        estadoAtual = Animation_ID::jump;
-    }else {
-        estadoAtual = Animation_ID::idle;
-    }
-
-    animacao.update(estadoAtual, olhandoesquerda, pos, dt);
-}
 void Jogador::executar(){
     nochao = false;
 
@@ -88,17 +43,32 @@ void Jogador::executar(){
 }
 
 
-void Jogador::atacar(){
-    if(!atacando){
-        atacando = true;
-        tempoAtaque = 6 * 0.15f;
-    }
-}
-
-void Jogador::pular(){
-    this->iniciarSubida(0.50f,1.f);
-}
-
 bool Jogador::golpeAereo(){
     return (atacando && !nochao);
+}
+void Jogador::update(float dt){
+    if(atacando){
+        tempoAtaque -= dt;
+        if(tempoAtaque <= 0.f){
+            atacando = false;
+        }
+    }
+
+    this->atualizarSubida(dt);
+
+    Animation_ID estadoAtual;
+    if(golpeAereo()){
+        estadoAtual = Animation_ID::attack;
+        
+    }else if(this->estaAtacando()){
+        estadoAtual = Animation_ID::attack2;
+    } else if(estaAndando()){
+        estadoAtual = Animation_ID::walk;
+    } else if(!nochao){
+        estadoAtual = Animation_ID::jump;
+    }else {
+        estadoAtual = Animation_ID::idle;
+    }
+
+    animacao.update(estadoAtual, olhandoesquerda, pos, dt);
 }

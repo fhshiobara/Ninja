@@ -18,6 +18,11 @@ protected:
     bool nochao;
     bool subindo;
     float tempoSubida;
+    
+    bool atacando;
+    bool andandoDireita;
+    bool andandoEsquerda;
+    float tempoAtaque;
 public:
     Personagem();
     ~Personagem();
@@ -33,6 +38,15 @@ public:
     void iniciarSubida(float tempo,float velocidade);
     void atualizarSubida(float dt);
     bool getSubindo();
+    
+    //daqui pra frente vai ser o que eu subi de jogador
+    
+    bool estaAndando();
+    bool estaAtacando();
+    void setAndandoDireita(bool valor);
+    void setAndandoEsquerda(bool valor);
+    void atacar();
+    void pular();
     
     
 

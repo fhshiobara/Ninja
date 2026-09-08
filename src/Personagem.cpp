@@ -6,7 +6,7 @@
 //
 
 #include "Personagem.hpp"
-Personagem::Personagem():hp(3),vivo(true),nochao(true),subindo(false),tempoSubida(0.f){
+Personagem::Personagem():hp(3),vivo(true),nochao(true),subindo(false),tempoSubida(0.f),atacando(false),andandoDireita(false),andandoEsquerda(false),tempoAtaque(0.f){
     
 }
 
@@ -57,4 +57,37 @@ void Personagem::atualizarSubida(float dt){
 bool Personagem::getSubindo(){
     return subindo;
 }
+
+//subidos de jogador
+bool Personagem::estaAndando(){
+    return andandoDireita || andandoEsquerda;
+}
+
+bool Personagem::estaAtacando(){
+    return atacando;
+}
+
+void Personagem::setAndandoDireita(bool valor){
+    frearHorizontal();
+    andandoDireita = valor;
+    if(valor){ olhandoesquerda = false; }
+}
+
+void Personagem::setAndandoEsquerda(bool valor){
+    frearHorizontal();
+    andandoEsquerda = valor;
+    if(valor){ olhandoesquerda = true; }
+}
+
+void Personagem::atacar(){
+    if(!atacando){
+        atacando = true;
+        tempoAtaque = 6 * 0.15f;
+    }
+}
+
+void Personagem::pular(){
+    this->iniciarSubida(0.50f,1.f);
+}
+
 

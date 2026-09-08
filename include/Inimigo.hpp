@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include "Personagem.hpp"
+#include "Jogador.hpp"
 
 
 
@@ -21,6 +22,6 @@ public:
     Inimigo();
     ~Inimigo();
     
-    virtual void danificar()=0;
+    virtual void danificar(Jogador* pJog)=0;
 };
 #endif /* Inimigo_hpp */

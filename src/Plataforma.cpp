@@ -8,6 +8,7 @@
 #include "Plataforma.hpp"
 
 Plataforma::Plataforma():ativa(true){
+    id = 2;
     this->setTam(CoordF(1300.f,100.f));
     this->setPos(CoordF(150.f,500.f));
     hitbox = new sf::RectangleShape;

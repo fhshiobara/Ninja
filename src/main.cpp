@@ -1,11 +1,13 @@
 #include <iostream>
 #include "Jogador.hpp"
 #include "Plataforma.hpp"
+#include "Mago.hpp"
 
 int main(){
     Jogador jogador;
     Plataforma plat;
-
+    Mago mago;
+    
     sf::Clock relogio;
 
     while(pGraphicM->windowopen()){
@@ -42,6 +44,8 @@ int main(){
         float dt = relogio.restart().asSeconds();
         jogador.update(dt);
         jogador.executar();
+        mago.update(dt);
+        mago.executar();
         
         plat.obstruir(&jogador);
         
@@ -49,6 +53,7 @@ int main(){
         pGraphicM->clear();
         plat.render();
         jogador.render();
+        mago.render();
         pGraphicM->display();
     }
 

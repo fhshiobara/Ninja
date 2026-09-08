@@ -14,25 +14,15 @@
 class Jogador:public Personagem{
 protected:
     int pontos;
-    bool atacando;
-    bool andandoDireita;
-    bool andandoEsquerda;
-    float tempoAtaque;
+
 public:
     Jogador();
     ~Jogador();
     
-    void atacar();
-    void pular();
-    
-    void update(float dt) override;
     void executar() override;
+    void update(float dt)override;
     
-    bool estaAtacando();
     bool golpeAereo();
-    bool estaAndando();
-    void setAndandoDireita(bool a);
-    void setAndandoEsquerda(bool a);
     
 };
 

@@ -63,6 +63,7 @@ set(SOURCES
     src/Jogador.cpp
     src/Obstaculo.cpp
     src/Plataforma.cpp
+    src/Mago.cpp
     
     
     

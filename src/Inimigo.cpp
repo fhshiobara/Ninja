@@ -6,3 +6,7 @@
 //
 
 #include "Inimigo.hpp"
+
+Inimigo::Inimigo():maldade(5){}
+
+Inimigo::~Inimigo(){}
