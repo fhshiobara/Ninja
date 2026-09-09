@@ -4,6 +4,7 @@
 #include "Mago.hpp"
 
 int main(){
+    srand(time(NULL));
     Jogador jogador;
     Plataforma plat;
     Mago mago;

@@ -50,11 +50,20 @@ void Mago::update(float dt){
 
 
 void Mago::danificar(Jogador* pJog){
+    int aux;
     float dx = pos.x - pJog->getPos().x;
     float dy = pos.y - pJog->getPos().y;
     float dist = sqrt(dx*dx + dy*dy);
-    if(dist<100.f){
-        this->ataque2();
+    if(dist<150.f){
+        if(!atacando){
+            aux = rand()%2;
+            if(aux==0){
+                ataque2();
+            }else{
+                atacar();
+            }
+        }
+        
     }
     
     
@@ -82,16 +91,18 @@ void Mago::executar(){
 }
 
 void Mago::ataque2(){
-    nochao = false;
-    pular();
+    this-> pular();
     if(olhandoesquerda){
-        vel.x = 1.f;
+        vel.x = 1.8f;
+        mover();
     }else{
-        vel.x=-1.f;
+        vel.x=-1.8f;
+        mover();
     }
-    mover();
+    
     nochao = true;
     frearHorizontal();
+    this->atacar();
     
 }
 
