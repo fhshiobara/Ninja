@@ -19,6 +19,8 @@ public:
     ~Ataque();
     
     void update(float dt);
+    void executar();
+    bool acabou()const;
     
     
 };

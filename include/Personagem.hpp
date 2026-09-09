@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include "Entidade.hpp"
+#include "Ataque.hpp"
 
 class Personagem:public Entidade{
 protected:
@@ -18,6 +19,7 @@ protected:
     bool nochao;
     bool subindo;
     float tempoSubida;
+    Ataque* atk;
     
     bool atacando;
     bool andandoDireita;
