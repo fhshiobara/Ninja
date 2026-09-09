@@ -6,6 +6,7 @@
 //
 
 #include "Mago.hpp"
+#include <math.h>
 
 Mago::Mago():experiencia(2){
     id = 3;
@@ -17,7 +18,8 @@ Mago::Mago():experiencia(2){
     animacao.addNewAnimation(Animation_ID::jump,"../assets/Mago/Jump.png",2);
     pos = CoordF(800,300);
     this->nochao = false;
-    this->setTam(CoordF(88.f,150.f));
+    this->setTam(CoordF(60.f,150.f));
+    hitbox->setSize(sf::Vector2f(tam.x,tam.y));
     
 }
 Mago::~Mago(){}
@@ -47,7 +49,18 @@ void Mago::update(float dt){
 }
 
 
-void Mago::danificar(Jogador* pJog){}
+void Mago::danificar(Jogador* pJog){
+    float dx = pos.x - pJog->getPos().x;
+    float dy = pos.y - pJog->getPos().y;
+    if(dx<0){dx = dx*(-1);}
+    if(dy<0){dy = dy*(-1);}
+    float dist = sqrt(dx*dx + dy*dy);
+    if(dist<100.f){
+        this->atacar();
+    }
+    
+    
+}
 
 
 

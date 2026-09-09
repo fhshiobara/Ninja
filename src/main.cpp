@@ -54,7 +54,9 @@ int main(){
 
         pGraphicM->clear();
         plat.render();
+        jogador.renderHitbox();
         jogador.render();
+        mago.renderHitbox();
         mago.render();
         pGraphicM->display();
     }

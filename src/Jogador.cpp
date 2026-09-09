@@ -18,7 +18,8 @@ Jogador::Jogador():pontos(0){
     //pos = CoordF(960.f,900.f);
     pos= CoordF(600,300);
     this->nochao = false;
-    this->setTam(CoordF(64.f,64.f));
+    this->setTam(CoordF(30.f,60.f));
+    hitbox->setSize(sf::Vector2f(tam.x,tam.y));
 }
 Jogador::~Jogador(){}
 

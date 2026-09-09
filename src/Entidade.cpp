@@ -49,3 +49,11 @@ void Entidade::frear(){
     frearHorizontal();
     frearVertical();
 }
+
+
+void Entidade::renderHitbox(){
+    float offsetX = tam.x/2;
+    float offsetY = tam.y/2;
+    hitbox->setPosition(pos.x-offsetX,pos.y-offsetY);
+    pGG->render(hitbox);
+}

@@ -35,6 +35,8 @@ public:
     void frearHorizontal();
     void frearVertical();
     void frear();
+    
+    void renderHitbox();
 };
 
 #endif /* Entidade_hpp */

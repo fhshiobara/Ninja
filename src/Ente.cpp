@@ -8,6 +8,7 @@
 #include "Ente.hpp"
 
 Ente::Ente():id(0),pGG(Gerenciadores::GerenciadorGrafico::getInstance()),hitbox(NULL),tam(0.f,0.f){
+    criarHitbox();
 }
 Ente::~Ente(){
     if(hitbox!=NULL){
@@ -34,6 +35,7 @@ void Ente::criarHitbox(){
     hitbox = new sf::RectangleShape;
     hitbox->setOrigin(0.f,0.f);
     hitbox->setPosition(0.f,0.f);
+    hitbox->setFillColor(sf::Color::Black);
     hitbox->setOutlineColor(sf::Color::Green);
     hitbox->setOutlineThickness(1.0f);
 }
