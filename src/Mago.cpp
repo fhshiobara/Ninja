@@ -79,13 +79,18 @@ void Mago::executar(){
     } else {
         this->gravidade();
     }
+    if(olhandoesquerda){
+        andandoEsquerda = true;
+    }else{
+        andandoDireita = true;
+    }
 
     if(andandoDireita){
-        this->vel.x = 1.5f;
+        this->vel.x = 0.5f;
         this->mover();
     }
     if(andandoEsquerda){
-        this->vel.x = -1.5f;
+        this->vel.x = -0.5f;
         this->mover();
     }
 }
@@ -94,14 +99,10 @@ void Mago::ataque2(){
     this-> pular();
     if(olhandoesquerda){
         vel.x = 1.8f;
-        mover();
     }else{
         vel.x=-1.8f;
-        mover();
     }
     
-    nochao = true;
-    frearHorizontal();
     this->atacar();
     
 }

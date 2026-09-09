@@ -22,6 +22,7 @@ namespace Gerenciadores{
         
             window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "Gerenciador Grafico");
             window->setFramerateLimit(144);
+            view = sf::View(sf::FloatRect(0,0,1920,1080));
         }
 
     GerenciadorGrafico::~GerenciadorGrafico(){
@@ -87,4 +88,30 @@ namespace Gerenciadores{
         }
         return font;
     }
+}
+void Gerenciadores::GerenciadorGrafico::seguirCamera(CoordF alvo, CoordF tamanhoMapa){
+    float halfW = view.getSize().x / 2.f;
+    float halfH = view.getSize().y / 2.f;
+
+    float centroX = alvo.x;
+    float centroY = alvo.y;
+
+    if(tamanhoMapa.x > view.getSize().x){
+        centroX = std::max(halfW, std::min(centroX, tamanhoMapa.x - halfW));
+    } else {
+        centroX = tamanhoMapa.x / 2.f;
+    }
+
+    if(tamanhoMapa.y > view.getSize().y){
+        centroY = std::max(halfH, std::min(centroY, tamanhoMapa.y - halfH));
+    } else {
+        centroY = tamanhoMapa.y / 2.f;
+    }
+
+    view.setCenter(centroX, centroY);
+    window->setView(view);
+}
+
+void Gerenciadores::GerenciadorGrafico::usarViewPadrao(){
+    window->setView(window->getDefaultView());
 }

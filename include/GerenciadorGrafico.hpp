@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "VectorTL.hpp"
 
 namespace Gerenciadores{
         
@@ -50,6 +51,9 @@ namespace Gerenciadores{
             sf::Texture* loadTexture(const char* path);
 
             sf::Font* getFont();
+        
+        void seguirCamera(CoordF alvo, CoordF tamanhoMapa);
+        void usarViewPadrao(); // pra desenhar HUD depois, sem scroll
             
     };
 

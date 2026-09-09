@@ -55,19 +55,26 @@ int main(){
         mago.olhar(&jogador);
         mago.danificar(&jogador);
         mago.update(dt);
-        mago.executar();
+        
         
         
         plat.obstruir(&jogador);
         plat.obstruir(&mago);
+        mago.executar();
         
-
+        
+        
+        
         pGraphicM->clear();
+        pGraphicM->seguirCamera(jogador.getPos(), CoordF(4000, 1080));
+        // ... desenha jogador, mago, plataformas, ataques ...
         plat.render();
         jogador.renderHitbox();
         jogador.render();
         mago.renderHitbox();
         mago.render();
+        pGraphicM->usarViewPadrao();
+        //aqui da o render no que é parado
         pGraphicM->display();
     }
 

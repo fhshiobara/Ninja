@@ -102,6 +102,7 @@ void Plataforma::obstruir(Personagem* pJog){
             pJog->frearVertical();    // bateu a cabeça por baixo
         }
     }
+    pJog->frearHorizontal();
 }//funcao feita pelo claude
 
 void Plataforma::update(float dt){}
