@@ -14,6 +14,8 @@
 class Jogador:public Personagem{
 protected:
     int pontos;
+    bool defendendo;
+    float tempoDefesa;
 
 public:
     Jogador();
@@ -23,6 +25,8 @@ public:
     void update(float dt)override;
     
     bool golpeAereo();
+    void defender();
+    void setDefendendo(bool a);
     
 };
 

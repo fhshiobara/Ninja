@@ -14,6 +14,8 @@
 class Mago:public Inimigo{
 protected:
     int experiencia;
+    float TempoDash;
+    float Dash;
 public:
     Mago();
     ~Mago();
@@ -21,6 +23,9 @@ public:
     
     void update(float dt)override;
     void executar()override;
+    
+    void ataque2();
+    
     
     
 };

@@ -31,6 +31,9 @@ int main(){
                 else if(evento.key.code == sf::Keyboard::X){
                     jogador.atacar();
                 }
+                else if(evento.key.code == sf::Keyboard::Space){
+                    jogador.defender();
+                }
             }
             else if(evento.type == sf::Event::KeyReleased){
                 if(evento.key.code == sf::Keyboard::Right){
@@ -39,12 +42,16 @@ int main(){
                 else if(evento.key.code == sf::Keyboard::Left){
                     jogador.setAndandoEsquerda(false);
                 }
+                else if(evento.key.code==sf::Keyboard::Space){
+                    jogador.setDefendendo(false);
+                }
             }
         }
 
         float dt = relogio.restart().asSeconds();
         jogador.update(dt);
         jogador.executar();
+        mago.olhar(&jogador);
         mago.update(dt);
         mago.executar();
         mago.danificar(&jogador);

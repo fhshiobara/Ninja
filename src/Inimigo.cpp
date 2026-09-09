@@ -10,3 +10,14 @@
 Inimigo::Inimigo():maldade(5){}
 
 Inimigo::~Inimigo(){}
+
+void Inimigo::olhar(Jogador* pJog){
+    float dx = pos.x - pJog->getPos().x;
+    float dy = pos.y - pJog->getPos().y;
+    if(dx<0){
+        olhandoesquerda = false;
+    }
+    else{
+        olhandoesquerda = true;
+    }
+}

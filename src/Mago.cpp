@@ -8,7 +8,7 @@
 #include "Mago.hpp"
 #include <math.h>
 
-Mago::Mago():experiencia(2){
+Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f){
     id = 3;
     animacao.addNewAnimation(Animation_ID::walk,"../assets/Mago/Run.png",8);
     animacao.addNewAnimation(Animation_ID::attack,"../assets/Mago/Attack1.png",8);
@@ -52,12 +52,6 @@ void Mago::update(float dt){
 void Mago::danificar(Jogador* pJog){
     float dx = pos.x - pJog->getPos().x;
     float dy = pos.y - pJog->getPos().y;
-    if(dx<0){
-        olhandoesquerda = false;
-    }
-    else{
-        olhandoesquerda = true;
-    }
     float dist = sqrt(dx*dx + dy*dy);
     if(dist<100.f){
         this->atacar();
@@ -87,5 +81,8 @@ void Mago::executar(){
     }
 }
 
+void Mago::ataque2(){
+    
+}
 
 

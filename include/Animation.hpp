@@ -20,7 +20,8 @@ enum Animation_ID{
     hurt = 3,
     jump = 4,
     death = 5,
-    attack2 =6
+    attack2 =6,
+    defend=7
 };
 
 class Animation{

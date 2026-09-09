@@ -23,5 +23,6 @@ public:
     ~Inimigo();
     
     virtual void danificar(Jogador* pJog)=0;
+    void olhar(Jogador* pJog);
 };
 #endif /* Inimigo_hpp */

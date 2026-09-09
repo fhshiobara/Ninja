@@ -7,7 +7,7 @@
 
 #include "Jogador.hpp"
 
-Jogador::Jogador():pontos(0){
+Jogador::Jogador():pontos(0),defendendo(false),tempoDefesa(0.f){
     id=1;
     animacao.addNewAnimation(Animation_ID::walk,"../assets/Cavaleiro/RUN.png",8);
     animacao.addNewAnimation(Animation_ID::idle,"../assets/Cavaleiro/IDLE.png",7);
@@ -15,6 +15,7 @@ Jogador::Jogador():pontos(0){
     animacao.addNewAnimation(Animation_ID::attack,"../assets/Cavaleiro/ATTACK 3.png",6);
     animacao.addNewAnimation(Animation_ID::jump,"../assets/Cavaleiro/JUMP.png",5);
     animacao.addNewAnimation(Animation_ID::attack2,"../assets/Cavaleiro/ATTACK 1.png",6);
+    animacao.addNewAnimation(Animation_ID::defend,"../assets/Cavaleiro/DEFEND.png",6);
     //pos = CoordF(960.f,900.f);
     pos= CoordF(600,300);
     this->nochao = false;
@@ -58,7 +59,10 @@ void Jogador::update(float dt){
     this->atualizarSubida(dt);
 
     Animation_ID estadoAtual;
-    if(golpeAereo()){
+    if(defendendo){
+        estadoAtual=Animation_ID::defend;
+    }
+    else if(golpeAereo()){
         estadoAtual = Animation_ID::attack;
     }else if(this->estaAtacando()){
         estadoAtual = Animation_ID::attack2;
@@ -71,4 +75,16 @@ void Jogador::update(float dt){
     }
 
     animacao.update(estadoAtual, olhandoesquerda, pos, dt);
+}
+
+void Jogador::defender(){
+    if(!defendendo){
+        defendendo = true;
+        tempoDefesa = 6 * 0.15f;
+
+    }
+}
+
+void Jogador::setDefendendo(bool a){
+    defendendo = a;
 }

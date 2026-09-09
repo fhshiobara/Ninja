@@ -6,7 +6,7 @@
 //
 
 #include "Personagem.hpp"
-Personagem::Personagem():hp(3),vivo(true),nochao(true),subindo(false),tempoSubida(0.f),atacando(false),andandoDireita(false),andandoEsquerda(false),tempoAtaque(0.f),atk(false){
+Personagem::Personagem():hp(3),vivo(true),nochao(true),subindo(false),tempoSubida(0.f),atacando(false),andandoDireita(false),andandoEsquerda(false),tempoAtaque(0.f),atk(NULL){
     
 }
 
