@@ -47,6 +47,7 @@ int main(){
         jogador.executar();
         mago.update(dt);
         mago.executar();
+        mago.danificar(&jogador);
         
         plat.obstruir(&jogador);
         plat.obstruir(&mago);

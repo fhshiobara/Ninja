@@ -65,6 +65,7 @@ set(SOURCES
     src/Plataforma.cpp
     src/Mago.cpp
     src/GerenciadorColisoes.cpp
+    src/Ataque.cpp
     
     
     

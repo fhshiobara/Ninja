@@ -52,8 +52,12 @@ void Mago::update(float dt){
 void Mago::danificar(Jogador* pJog){
     float dx = pos.x - pJog->getPos().x;
     float dy = pos.y - pJog->getPos().y;
-    if(dx<0){dx = dx*(-1);}
-    if(dy<0){dy = dy*(-1);}
+    if(dx<0){
+        olhandoesquerda = false;
+    }
+    else{
+        olhandoesquerda = true;
+    }
     float dist = sqrt(dx*dx + dy*dy);
     if(dist<100.f){
         this->atacar();
