@@ -54,7 +54,7 @@ void Mago::danificar(Jogador* pJog){
     float dy = pos.y - pJog->getPos().y;
     float dist = sqrt(dx*dx + dy*dy);
     if(dist<100.f){
-        this->atacar();
+        this->ataque2();
     }
     
     
@@ -82,6 +82,16 @@ void Mago::executar(){
 }
 
 void Mago::ataque2(){
+    nochao = false;
+    pular();
+    if(olhandoesquerda){
+        vel.x = 1.f;
+    }else{
+        vel.x=-1.f;
+    }
+    mover();
+    nochao = true;
+    frearHorizontal();
     
 }
 

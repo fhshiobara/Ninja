@@ -52,9 +52,10 @@ int main(){
         jogador.update(dt);
         jogador.executar();
         mago.olhar(&jogador);
+        mago.danificar(&jogador);
         mago.update(dt);
         mago.executar();
-        mago.danificar(&jogador);
+        
         
         plat.obstruir(&jogador);
         plat.obstruir(&mago);
