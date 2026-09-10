@@ -2,12 +2,14 @@
 #include "Jogador.hpp"
 #include "Plataforma.hpp"
 #include "Mago.hpp"
+#include "Limites.hpp"
 
 int main(){
     srand(time(NULL));
     Jogador jogador;
     Plataforma plat;
     Mago mago;
+    Limites lim;
     int i =0;
     
     sf::Clock relogio;
@@ -61,6 +63,7 @@ int main(){
         plat.obstruir(&jogador);
         plat.obstruir(&mago);
         mago.executar();
+        lim.executar(&jogador);
         
         
         
