@@ -17,6 +17,7 @@ Limites::~Limites(){
     while(it!=lims.end()){
         delete (*it);
         (*it) = NULL;
+        it++;
     }
 }
 
@@ -26,7 +27,7 @@ void Limites::criarLimitesMapa(){
         Plataforma* pPlat = new Plataforma;
         pPlat->setTam(CoordF(4000,10));
         if(i==0){
-            pPlat->setPos(CoordF(0.f,1070.f));
+            pPlat->setPos(CoordF(0.f,1080.f));
         }else{
             pPlat->setPos(CoordF(0.f,0.f));
         }
@@ -36,8 +37,10 @@ void Limites::criarLimitesMapa(){
         pPlat->setTam(CoordF(10,1080));
         if(j==0){
             pPlat->setPos(CoordF(0.f,0.f));
+            lims.push_back(pPlat);
         }else{
             pPlat->setPos(CoordF(3090.f,0.f));
+            lims.push_back(pPlat);
         }
         
     }
