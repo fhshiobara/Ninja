@@ -20,17 +20,13 @@ Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f){
     this->nochao = false;
     this->setTam(CoordF(60.f,150.f));
     hitbox->setSize(sf::Vector2f(tam.x,tam.y));
+    this->criarAtaque(CoordF(120.f,80.f), 6 * 0.15f);
     
 }
 Mago::~Mago(){}
 
 void Mago::update(float dt){
-    if(atacando){
-        tempoAtaque -= dt;
-        if(tempoAtaque <= 0.f){
-            atacando = false;
-        }
-    }
+    this->atualizarAtaque(dt);
 
     this->atualizarSubida(dt);
 
@@ -79,18 +75,26 @@ void Mago::executar(){
     } else {
         this->gravidade();
     }
-    if(olhandoesquerda){
+    if(atacando){
+        andandoDireita = false;
+        andandoEsquerda = false;
+    }
+    else if(olhandoesquerda){
+        andandoDireita = false;
         andandoEsquerda = true;
     }else{
+        andandoEsquerda = false;
         andandoDireita = true;
     }
 
     if(andandoDireita){
-        this->vel.x = 0.5f;
+        olhandoesquerda = false;
+        this->vel.x = 1.f;
         this->mover();
     }
     if(andandoEsquerda){
-        this->vel.x = -0.5f;
+        olhandoesquerda=true;
+        this->vel.x = -1.f;
         this->mover();
     }
 }
@@ -106,5 +110,3 @@ void Mago::ataque2(){
     this->atacar();
     
 }
-
-

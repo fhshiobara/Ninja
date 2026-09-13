@@ -21,6 +21,7 @@ Jogador::Jogador():pontos(0),defendendo(false),tempoDefesa(0.f){
     this->nochao = false;
     this->setTam(CoordF(30.f,60.f));
     hitbox->setSize(sf::Vector2f(tam.x,tam.y));
+    this->criarAtaque(CoordF(40.f,50.f), 6 * 0.15f);
 }
 Jogador::~Jogador(){}
 
@@ -49,12 +50,7 @@ bool Jogador::golpeAereo(){
     return (atacando && !nochao);
 }
 void Jogador::update(float dt){
-    if(atacando){
-        tempoAtaque -= dt;
-        if(tempoAtaque <= 0.f){
-            atacando = false;
-        }
-    }
+    this->atualizarAtaque(dt);
 
     this->atualizarSubida(dt);
 

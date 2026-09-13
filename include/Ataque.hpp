@@ -14,15 +14,22 @@
 class Ataque:public Entidade{
 protected:
     float tempo;
+    float duracaoBase;
+    bool ativo;
 public:
-    Ataque(CoordF t,CoordF p,float duracao, float dt);
+    Ataque(CoordF tamanho, float duracao);
     ~Ataque();
-    
-    void update(float dt);
-    void executar();
+
+    void ativar(CoordF posPersonagem, CoordF tamanhoPersonagem, bool olhandoesquerda);
+    void desativar();
+    bool estaAtivo()const;
+
+    void update(float dt) override;
+    void executar() override;
+    void render() override; // só desenha a hitbox enquanto ativo
     bool acabou()const;
-    
-    
+
+
 };
 
 #endif /* Ataque_hpp */

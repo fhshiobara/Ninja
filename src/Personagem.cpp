@@ -10,7 +10,12 @@ Personagem::Personagem():hp(3),vivo(true),nochao(true),subindo(false),tempoSubid
     
 }
 
-Personagem::~Personagem(){}
+Personagem::~Personagem(){
+    if(atk!=NULL){
+        delete atk;
+        atk = NULL;
+    }
+}
 
 void Personagem::tomarDano(){
     if(hp>0){
@@ -83,6 +88,11 @@ void Personagem::atacar(){
     if(!atacando){
         atacando = true;
         tempoAtaque = 6 * 0.15f;
+        if(atk!=NULL){
+            // gera (reposiciona/liga) a hitbox temporária na frente do personagem,
+            // do lado pra onde ele está olhando
+            atk->ativar(pos, tam, olhandoesquerda);
+        }
     }
 }
 
@@ -90,4 +100,30 @@ void Personagem::pular(){
     this->iniciarSubida(0.50f,1.f);
 }
 
+void Personagem::criarAtaque(CoordF tamanhoAtaque, float duracao){
+    // aloca o Ataque uma única vez (elemento "estático" do personagem).
+    // Cada subclasse chama isso no seu construtor, escolhendo o tamanho da
+    // própria hitbox de ataque, e a partir daí ele só é ativado/desativado.
+    if(atk==NULL){
+        atk = new Ataque(tamanhoAtaque, duracao);
+    }
+}
 
+void Personagem::atualizarAtaque(float dt){
+    if(atacando){
+        tempoAtaque -= dt;
+        if(tempoAtaque <= 0.f){
+            atacando = false;
+            if(atk!=NULL){
+                atk->desativar();
+            }
+        }
+    }
+    if(atk!=NULL){
+        atk->update(dt);
+    }
+}
+
+Ataque* Personagem::getAtaque(){
+    return atk;
+}

@@ -67,7 +67,8 @@ set(SOURCES
     src/GerenciadorColisoes.cpp
     src/Ataque.cpp
     src/Limites.cpp
-    
+    src/SingleFrameAnimation.cpp
+    src/Fase.cpp
     
     
     

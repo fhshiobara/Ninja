@@ -10,10 +10,13 @@
 
 #include <stdio.h>
 #include "Obstaculo.hpp"
+#include "SingleFrameAnimation.hpp"
 
 class Plataforma:public Obstaculo{
 protected:
     bool ativa;
+    SingleFrameAnimation* sprite;
+    SingleFrameAnimation* terra;
 public:
     Plataforma();
     Plataforma(CoordF p,CoordF t);

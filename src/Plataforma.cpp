@@ -7,19 +7,20 @@
 
 #include "Plataforma.hpp"
 
-Plataforma::Plataforma():ativa(true){
+Plataforma::Plataforma():ativa(true),sprite(NULL),terra(NULL){
     id = 2;
-    this->setTam(CoordF(1300.f,100.f));
-    this->setPos(CoordF(150.f,500.f));
+    this->setTam(CoordF(3000.f,100.f));
+    this->setPos(CoordF(150.f,800.f));
     hitbox = new sf::RectangleShape;
-    hitbox->setSize(sf::Vector2f(1300.f,100.f));
+    hitbox->setSize(sf::Vector2f(3000.f,100.f));
     hitbox->setOrigin(0.f,0.f);
     hitbox->setPosition(pos.x, pos.y);
-    hitbox->setFillColor(sf::Color::Blue);
+    hitbox->setFillColor(sf::Color::Black);
+    sprite = new SingleFrameAnimation("../assets/Telas/terrafinal.png", CoordF(pos.x,pos.y), CoordF(900,400), 1.0);
     
 }
 
-Plataforma::Plataforma(CoordF p,CoordF t):ativa(true){
+Plataforma::Plataforma(CoordF p,CoordF t):ativa(true),terra(NULL){
     this->setTam(t);
     this->setPos(p);
     hitbox = new sf::RectangleShape;
@@ -27,9 +28,24 @@ Plataforma::Plataforma(CoordF p,CoordF t):ativa(true){
     hitbox->setPosition(p.x, p.y);
     hitbox->setOrigin(0.f,0.f);
     hitbox->setFillColor(sf::Color::Green);
+    sprite = new SingleFrameAnimation("../assets/Telas/terrafinal.png", CoordF(pos.x-36,pos.y-60), CoordF(t.x+80,400), 1.0);
+    if(pos.y-20+tam.y<1060){
+        terra = new SingleFrameAnimation("../assets/Telas/terra.png", CoordF(pos.x-60,pos.y+tam.y+50), CoordF(t.x+120,300), 1.0);
+        
+    }
+    
 }
 
-Plataforma::~Plataforma(){}
+Plataforma::~Plataforma(){
+    if(sprite){
+        delete sprite;
+        sprite = NULL;
+    }
+    if(terra){
+        delete terra;
+        terra = NULL;
+    }
+}
 
 void Plataforma::executar(){
     pGG->render(hitbox);
@@ -90,7 +106,7 @@ void Plataforma::obstruir(Personagem* pJog){
         } else {
             pJog->setPos(CoordF(dirPlat + tamJog.x / 2.f, posJog.y));
         }
-        pJog->frearHorizontal();
+        //pJog->frearHorizontal();
 
     } else {
         // a menor invasao foi vertical -> empurra pra cima ou pra baixo
@@ -108,7 +124,15 @@ void Plataforma::obstruir(Personagem* pJog){
 void Plataforma::update(float dt){}
 
 void Plataforma::render(){
-    if(hitbox){
+    /*if(hitbox){
         pGG->render(hitbox);
+    }*/
+    
+    if(sprite){
+        sprite->render();
     }
+    if(terra){
+        terra->render();
+    }
+    
 }
