@@ -69,6 +69,7 @@ set(SOURCES
     src/Limites.cpp
     src/SingleFrameAnimation.cpp
     src/Fase.cpp
+    src/FasePrimeira.cpp
     
     
     

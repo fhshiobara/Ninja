@@ -10,10 +10,11 @@
 
 #include <stdio.h>
 #include <vector>
-#include "Entidade.hpp"
 #include "GerenciadorColisoes.hpp"
 #include "SingleFrameAnimation.hpp"
 #include "Plataforma.hpp"
+#include "Jogador.hpp"
+#include "Mago.hpp"
 
 class Fase{
 protected:
@@ -23,15 +24,18 @@ protected:
     SingleFrameAnimation* fundo;
     std::vector<Plataforma*> vPlats;
     std::vector<Plataforma*>::iterator itP;
+    Jogador* pJog;
+    
     
     
 public:
     Fase();
     ~Fase();
     virtual void executar()=0;
-    void criarInimigos();
+    //void criarInimigosMagos();
     void criarPlataformas();
     virtual void criarCenario();
+    virtual void criarInimigos()=0;
     
     float gridmap(int aux);
     

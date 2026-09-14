@@ -1,0 +1,30 @@
+//
+//  FasePrimeira.cpp
+//  Ninja
+//
+//  Created by Edison Shiobara on 14/09/26.
+//
+
+#include "FasePrimeira.hpp"
+FasePrimeira::FasePrimeira():numMagos(3){
+    numMagos =+rand()%3;
+    criarCenario();
+    criarPlataformas();
+    criarInimigos();
+}
+
+FasePrimeira::~FasePrimeira(){}
+
+void FasePrimeira::executar(){
+    for(it=vEntidades.begin();it!=vEntidades.end();it++){
+        (*it)->executar();
+    }
+}
+
+void FasePrimeira::criarInimigos(){
+    for(int i=0;i<numMagos;i++){
+        Mago* pMago = new Mago;
+        vEntidades.push_back(pMago);
+    }
+}
+

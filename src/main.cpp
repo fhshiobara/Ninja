@@ -8,7 +8,7 @@
 int main(){
     srand(0);
     Jogador jogador;
-    Plataforma plat;
+    Plataforma plat(CoordF(0.f,800.f),CoordF(770.f,200));
     Plataforma plat2(CoordF(760.f,700),CoordF(800,200));
     Mago mago;
     Limites lim;

@@ -21,7 +21,9 @@ void Fase::criarCenario(){
 }
 void Fase::criarPlataformas(){
     int aux = 4000 / rand()%8 + 10;
-    for(int i=0; i<+aux;i= i+aux){
+    pJog = new Jogador();
+    pJog->setPos(CoordF(50.f,500.f));
+    for(int i=0; i<=4000;i= i+aux){
         Plataforma* pNova = NULL;
         pNova = new Plataforma(CoordF(i,gridmap(rand()%4)),CoordF(aux,300));
         vPlats.push_back(pNova);
