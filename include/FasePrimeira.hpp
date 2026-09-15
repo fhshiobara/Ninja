@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include "Fase.hpp"
+#include "Mago.hpp"
 
 
 class FasePrimeira:public Fase{
