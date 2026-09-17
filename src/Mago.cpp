@@ -49,12 +49,12 @@ void Mago::update(float dt){
     if(this->estaAtacando()){
         estadoAtual = Animation_ID::attack2;
         flg = olhandoesquerda;
-    } else if(estaAndando()){
+    }else if(!ativo){
+        estadoAtual = Animation_ID::idle;
+    }else if(estaAndando()){
         estadoAtual = Animation_ID::walk;
     } else if(!nochao){
         estadoAtual = Animation_ID::jump;
-    }else{
-        estadoAtual = Animation_ID::idle;
     }
     if(atacando){
         animacao.update(estadoAtual,flg,pos,dt);
@@ -121,14 +121,24 @@ void Mago::executar(){
     }
 
     if(andandoDireita){
+        if(posAnt.x==pos.x &&posAnt.y == pos.y){
+            this->pular();
+        }
+        posAnt = pos;
         olhandoesquerda = false;
         this->vel.x = 1.f;
         this->mover();
+        
     }
     if(andandoEsquerda){
+        if(posAnt.x==pos.x &&posAnt.y == pos.y){
+            this->pular();
+        }
+        posAnt = pos;
         olhandoesquerda=true;
         this->vel.x = -1.f;
         this->mover();
+        
     }
 }
 

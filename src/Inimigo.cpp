@@ -7,7 +7,7 @@
 
 #include "Inimigo.hpp"
 
-Inimigo::Inimigo():maldade(5),ativo(false){}
+Inimigo::Inimigo():maldade(5),ativo(false),posAnt(pos){}
 
 Inimigo::~Inimigo(){}
 

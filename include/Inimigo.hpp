@@ -19,6 +19,7 @@ class Inimigo:public Personagem{
 protected:
     int maldade;
     bool ativo;
+    CoordF posAnt;
 public:
     Inimigo();
     ~Inimigo();
