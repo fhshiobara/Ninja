@@ -2,7 +2,8 @@
 #include "FasePrimeira.hpp"
 
 int main(){
-    srand(0);
+    time_t t;
+    srand(time(NULL));
 
     Fase* pFase = new FasePrimeira();
     pFase->rodar();

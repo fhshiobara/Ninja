@@ -40,10 +40,10 @@ void Fase::criarCenario(){
     fundo = new SingleFrameAnimation("../assets/Telas/fase1.png",CoordF(0.f,0.f),CoordF(4000.f,1080.f),1.0);
 }
 void Fase::criarPlataformas(){
-    int aux = 4000 / rand()%8 + 10;
+    int aux = 4000 /(rand()%3 + 5);
     pJog = new Jogador();
     pJog->setPos(CoordF(50.f,500.f));
-    for(int i=0; i<=4000;i= i+aux){
+    for(int i=-10; i<=4000;i= i+aux){
         Plataforma* pNova = NULL;
         pNova = new Plataforma(CoordF(i,gridmap(rand()%4)),CoordF(aux,300));
         vPlats.push_back(pNova);
@@ -120,15 +120,17 @@ void Fase::renderizar(){
     if(fundo){ fundo->render(); }
 
     for(itP=vPlats.begin();itP!=vPlats.end();itP++){
+        //(*itP)->renderHitbox();
         (*itP)->render();
+        
     }
 
-    pJog->renderHitbox();
+    //pJog->renderHitbox();
     pJog->render();
     if(pJog->getAtaque()!=NULL){ pJog->getAtaque()->render(); }
 
     for(it=vEntidades.begin();it!=vEntidades.end();it++){
-        (*it)->renderHitbox();
+        //(*it)->renderHitbox();
         (*it)->render();
         if((*it)->getAtaque()!=NULL){ (*it)->getAtaque()->render(); }
     }
@@ -152,9 +154,9 @@ void Fase::rodar(){
 
 float Fase::gridmap(int aux){
     if(aux == 0){return 700.f;}
-    else if(aux == 1){return 800.f;}
-    else if(aux == 2){return 600.f;}
-    else if(aux == 3){return 550.f;}
+    else if(aux == 1){return 730.f;}
+    else if(aux == 2){return 790.f;}
+    else if(aux == 3){return 760.f;}
 
     return 700.f;
 }

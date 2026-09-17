@@ -16,8 +16,10 @@ protected:
     int experiencia;
     float TempoDash;
     float Dash;
+    bool flg;
 public:
     Mago();
+    Mago(CoordF p);
     ~Mago();
     void danificar(Jogador* pJog)override;
     

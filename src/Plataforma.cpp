@@ -15,7 +15,7 @@ Plataforma::Plataforma():ativa(true),sprite(NULL),terra(NULL){
     hitbox->setSize(sf::Vector2f(3000.f,100.f));
     hitbox->setOrigin(0.f,0.f);
     hitbox->setPosition(pos.x, pos.y);
-    hitbox->setFillColor(sf::Color::Black);
+    hitbox->setOutlineColor(sf::Color::Black);
     sprite = new SingleFrameAnimation("../assets/Telas/terrafinal.png", CoordF(pos.x,pos.y), CoordF(900,400), 1.0);
     
 }
@@ -24,16 +24,15 @@ Plataforma::Plataforma(CoordF p,CoordF t):ativa(true),terra(NULL){
     this->setTam(t);
     this->setPos(p);
     hitbox = new sf::RectangleShape;
-    hitbox->setSize(sf::Vector2f(t.x,t.y));
-    hitbox->setPosition(p.x, p.y);
+    hitbox->setSize(sf::Vector2f(t.x+150,470));
+    hitbox->setPosition(p.x-36, p.y-60);
     hitbox->setOrigin(0.f,0.f);
-    hitbox->setFillColor(sf::Color::Green);
-    sprite = new SingleFrameAnimation("../assets/Telas/terrafinal.png", CoordF(pos.x-36,pos.y-60), CoordF(t.x+80,400), 1.0);
+    hitbox->setOutlineColor(sf::Color::Green);
+    hitbox->setOutlineThickness(0.5);
+    sprite = new SingleFrameAnimation("../assets/Telas/terrafinal.png", CoordF(pos.x,pos.y-60), CoordF(t.x+20,470), 1.0);
     if(pos.y-20+tam.y<1060){
-        terra = new SingleFrameAnimation("../assets/Telas/terra.png", CoordF(pos.x-60,pos.y+tam.y+50), CoordF(t.x+120,300), 1.0);
-        
+        terra = new SingleFrameAnimation("../assets/Telas/terra.png", CoordF(pos.x-60,pos.y+tam.y), CoordF(t.x+120,400), 1.0);
     }
-    
 }
 
 Plataforma::~Plataforma(){

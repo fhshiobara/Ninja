@@ -7,7 +7,6 @@
 
 #include "FasePrimeira.hpp"
 FasePrimeira::FasePrimeira():numMagos(3){
-    numMagos =+rand()%3;
     criarCenario();
     criarPlataformas();
     criarInimigos();
@@ -23,7 +22,7 @@ void FasePrimeira::executar(){
 
 void FasePrimeira::criarInimigos(){
     for(int i=0;i<numMagos;i++){
-        Mago* pMago = new Mago;
+        Mago* pMago = new Mago(CoordF(900+rand()%3100,690));
         vEntidades.push_back(pMago);
     }
 }

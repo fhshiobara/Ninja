@@ -39,7 +39,7 @@ void Limites::criarLimitesMapa(){
             pPlat->setPos(CoordF(0.f,0.f));
             lims.push_back(pPlat);
         }else{
-            pPlat->setPos(CoordF(3090.f,0.f));
+            pPlat->setPos(CoordF(4000.f,0.f));
             lims.push_back(pPlat);
         }
         

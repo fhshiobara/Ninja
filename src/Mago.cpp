@@ -8,7 +8,7 @@
 #include "Mago.hpp"
 #include <math.h>
 
-Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f){
+Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f),flg(false){
     id = 3;
     animacao.addNewAnimation(Animation_ID::walk,"../assets/Mago/Run.png",8);
     animacao.addNewAnimation(Animation_ID::attack,"../assets/Mago/Attack1.png",8);
@@ -23,6 +23,21 @@ Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f){
     this->criarAtaque(CoordF(120.f,80.f), 6 * 0.15f);
     
 }
+
+Mago::Mago(CoordF p):experiencia(2),TempoDash(5.f),Dash(0.f){
+    id = 3;
+    animacao.addNewAnimation(Animation_ID::walk,"../assets/Mago/Run.png",8);
+    animacao.addNewAnimation(Animation_ID::attack,"../assets/Mago/Attack1.png",8);
+    animacao.addNewAnimation(Animation_ID::attack2,"../assets/Mago/Attack2.png",8);
+    animacao.addNewAnimation(Animation_ID::death,"../assets/Mago/Death.png",7);
+    animacao.addNewAnimation(Animation_ID::idle,"../assets/Mago/Idle.png",8);
+    animacao.addNewAnimation(Animation_ID::jump,"../assets/Mago/Jump.png",2);
+    pos = CoordF(p);
+    this->nochao = false;
+    this->setTam(CoordF(60.f,150.f));
+    hitbox->setSize(sf::Vector2f(tam.x,tam.y));
+    this->criarAtaque(CoordF(120.f,80.f), 6 * 0.15f);
+}
 Mago::~Mago(){}
 
 void Mago::update(float dt){
@@ -33,6 +48,7 @@ void Mago::update(float dt){
     Animation_ID estadoAtual;
     if(this->estaAtacando()){
         estadoAtual = Animation_ID::attack2;
+        flg = olhandoesquerda;
     } else if(estaAndando()){
         estadoAtual = Animation_ID::walk;
     } else if(!nochao){
@@ -40,8 +56,12 @@ void Mago::update(float dt){
     }else {
         estadoAtual = Animation_ID::idle;
     }
-
-    animacao.update(estadoAtual, olhandoesquerda, pos, dt);
+    if(atacando){
+        animacao.update(estadoAtual,flg,pos,dt);
+        
+    }else{
+        animacao.update(estadoAtual, olhandoesquerda, pos, dt);
+    }
 }
 
 
