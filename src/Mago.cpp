@@ -91,6 +91,26 @@ void Mago::danificar(Jogador* pJog){
 
 
 void Mago::executar(){
+    if(atacando){
+        andandoDireita = false;
+        andandoEsquerda = false;
+    }
+    else if(olhandoesquerda){
+        andandoDireita = false;
+        andandoEsquerda = ativo;
+    } else {
+        andandoEsquerda = false;
+        andandoDireita = ativo;
+    }
+
+    // isso precisa vir ANTES de zerar o nochao, senão pular() nunca funciona
+    if(andandoDireita || andandoEsquerda){
+        if(posAnt.x==pos.x && posAnt.y==pos.y){
+            this->pular();
+        }
+        posAnt = pos;
+    }
+
     nochao = false;
 
     if(this->getSubindo()){
@@ -98,47 +118,16 @@ void Mago::executar(){
     } else {
         this->gravidade();
     }
-    if(atacando){
-        andandoDireita = false;
-        andandoEsquerda = false;
-    }
-    else if(olhandoesquerda){
-        if(ativo){
-            andandoDireita = false;
-            andandoEsquerda = true;
-        }else{
-            andandoDireita = false;
-            andandoEsquerda = false;
-        }
-    }else{
-        if(ativo){
-            andandoEsquerda = false;
-            andandoDireita = true;
-        }else{
-            andandoEsquerda = false;
-            andandoDireita = false;
-        }
-    }
 
     if(andandoDireita){
-        if(posAnt.x==pos.x &&posAnt.y == pos.y){
-            this->pular();
-        }
-        posAnt = pos;
         olhandoesquerda = false;
         this->vel.x = 1.f;
         this->mover();
-        
     }
     if(andandoEsquerda){
-        if(posAnt.x==pos.x &&posAnt.y == pos.y){
-            this->pular();
-        }
-        posAnt = pos;
-        olhandoesquerda=true;
+        olhandoesquerda = true;
         this->vel.x = -1.f;
         this->mover();
-        
     }
 }
 
