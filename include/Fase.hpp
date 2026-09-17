@@ -17,6 +17,7 @@
 #include "Limites.hpp"
 #include "Jogador.hpp"
 #include "Inimigo.hpp"
+#include "Espinho.hpp"
 
 class Fase{
 protected:
@@ -26,6 +27,9 @@ protected:
     SingleFrameAnimation* fundo;
     std::vector<Plataforma*> vPlats;
     std::vector<Plataforma*>::iterator itP;
+    
+    std::vector<Obstaculo*> vObstaculo;
+    std::vector<Obstaculo*>::iterator itO;
     Jogador* pJog;
     Limites* pLim;
     sf::Clock relogio;
@@ -54,6 +58,7 @@ public:
     void criarPlataformas();
     virtual void criarCenario();
     virtual void criarInimigos()=0;
+    virtual void criarObstaculos();
 
     float gridmap(int aux);
 

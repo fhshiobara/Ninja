@@ -11,16 +11,21 @@
 #include <stdio.h>
 #include "Entidade.hpp"
 #include "Personagem.hpp"
+#include "SingleFrameAnimation.hpp"
 
 class Obstaculo:public Entidade{
 protected:
     bool danoso;
+    SingleFrameAnimation* sprite;
+    
+    
 public:
     Obstaculo();
     ~Obstaculo();
     
     virtual void obstruir(Personagem* pJog)=0;
     virtual void executar()=0;
+    void render();
     
     bool getDanoso();
 };

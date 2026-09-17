@@ -10,6 +10,7 @@ FasePrimeira::FasePrimeira():numMagos(3){
     criarCenario();
     criarPlataformas();
     criarInimigos();
+    criarObstaculos();
 }
 
 FasePrimeira::~FasePrimeira(){}

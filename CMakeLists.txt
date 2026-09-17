@@ -71,6 +71,8 @@ set(SOURCES
     src/Fase.cpp
     src/FasePrimeira.cpp
     
+    src/Espinho.cpp
+    
     
     
 
