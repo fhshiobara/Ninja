@@ -7,16 +7,18 @@
 
 #include "Inimigo.hpp"
 
-Inimigo::Inimigo():maldade(5){}
+Inimigo::Inimigo():maldade(5),ativo(false){}
 
 Inimigo::~Inimigo(){}
 
 void Inimigo::olhar(Jogador* pJog){
-    float dx = pos.x - pJog->getPos().x;
-    if(dx<0){
-        olhandoesquerda = false;
-    }
-    else{
-        olhandoesquerda = true;
+    if(!atacando){
+        float dx = pos.x - pJog->getPos().x;
+        if(dx<0){
+            olhandoesquerda = false;
+        }
+        else{
+            olhandoesquerda = true;
+        }
     }
 }

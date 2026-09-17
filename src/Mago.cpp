@@ -53,7 +53,7 @@ void Mago::update(float dt){
         estadoAtual = Animation_ID::walk;
     } else if(!nochao){
         estadoAtual = Animation_ID::jump;
-    }else {
+    }else{
         estadoAtual = Animation_ID::idle;
     }
     if(atacando){
@@ -70,6 +70,9 @@ void Mago::danificar(Jogador* pJog){
     float dx = pos.x - pJog->getPos().x;
     float dy = pos.y - pJog->getPos().y;
     float dist = sqrt(dx*dx + dy*dy);
+    if(dist<300.f){
+        ativo = true;
+    }
     if(dist<150.f){
         if(!atacando){
             aux = rand()%2;
@@ -100,11 +103,21 @@ void Mago::executar(){
         andandoEsquerda = false;
     }
     else if(olhandoesquerda){
-        andandoDireita = false;
-        andandoEsquerda = true;
+        if(ativo){
+            andandoDireita = false;
+            andandoEsquerda = true;
+        }else{
+            andandoDireita = false;
+            andandoEsquerda = false;
+        }
     }else{
-        andandoEsquerda = false;
-        andandoDireita = true;
+        if(ativo){
+            andandoEsquerda = false;
+            andandoDireita = true;
+        }else{
+            andandoEsquerda = false;
+            andandoDireita = false;
+        }
     }
 
     if(andandoDireita){
