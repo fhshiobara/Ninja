@@ -8,28 +8,29 @@
 #include "Fase.hpp"
 
 
-Fase::Fase():pGC(NULL),fundo(NULL),pJog(NULL),pLim(NULL){
-    vEntidades.clear();
-    vPlats.clear();
-    vObstaculo.clear();
+Fase::Fase(): pGC(Gerenciadores::GerenciadorColisoes::getInstance()), fundo(NULL), pJog(NULL), pLim(NULL) {
     pLim = new Limites();
 }
-Fase::~Fase(){
-    for(itP=vPlats.begin();itP!=vPlats.end();itP++){
-        delete (*itP);
-        (*itP) = NULL;
-    }
-    vPlats.clear();
 
-    for(it=vEntidades.begin();it!=vEntidades.end();it++){
-        delete (*it);
-        (*it) = NULL;
+Fase::~Fase() {
+    // 1. Pega as referências dos vetores do Gerenciador
+    std::vector<Plataforma*>& plats = pGC->getPlataformas();
+    std::vector<Inimigo*>& inis = pGC->getInimigos();
+    std::vector<Obstaculo*>& obs = pGC->getObstaculos();
+
+    // 2. Deleta todos os objetos alocados
+    for (size_t i = 0; i < plats.size(); i++) {
+        delete plats[i];
     }
-    for(itO=vObstaculo.begin();itO!=vObstaculo.end();itO++){
-        delete (*it);
-        (*it) = NULL;
+    for (size_t i = 0; i < inis.size(); i++) {
+        delete inis[i];
     }
-    vEntidades.clear();
+    for (size_t i = 0; i < obs.size(); i++) {
+        delete obs[i];
+    }
+
+    // 3. Pede para o gerenciador limpar a lista de ponteiros vazios
+    pGC->limpar();
 
     delete pLim;
     pLim = NULL;
@@ -39,7 +40,6 @@ Fase::~Fase(){
 
     delete fundo;
     fundo = NULL;
-    
 }
 
 void Fase::criarCenario(){
@@ -48,11 +48,12 @@ void Fase::criarCenario(){
 void Fase::criarPlataformas(){
     int aux = 4000 /(rand()%3 + 5);
     pJog = new Jogador();
+    pGC->setJogador(pJog);
     pJog->setPos(CoordF(50.f,500.f));
-    for(int i=-10; i<=4000;i= i+aux){
+    for(int i=-10; i<=3900;i= i+aux){
         Plataforma* pNova = NULL;
         pNova = new Plataforma(CoordF(i,gridmap(rand()%4)),CoordF(aux,300));
-        vPlats.push_back(pNova);
+        pGC->adicionarPlataforma(pNova);
     }
 }
 
@@ -94,98 +95,89 @@ void Fase::tratarEventos(){
     }
 }
 
-void Fase::criarObstaculos(){
-    // Verifica se existem plataformas para evitar erro
-    if (vPlats.empty()) return;
+void Fase::criarObstaculos() {
+    std::vector<Plataforma*>& plats = pGC->getPlataformas();
+    if (plats.empty()) return;
 
-    int quantidadeEspinhos = 5; // Defina a quantidade desejada
+    int quantidadeEspinhos = 5;
     
-    // Proteção: se houver menos plataformas do que espinhos solicitados,
-    // reduz a quantidade de espinhos para o total de plataformas
-    if (quantidadeEspinhos > static_cast<int>(vPlats.size())) {
-            quantidadeEspinhos = static_cast<int>(vPlats.size());
-        }
+    if (quantidadeEspinhos > static_cast<int>(plats.size())) {
+        quantidadeEspinhos = static_cast<int>(plats.size());
+    }
 
-    // Cria um vetor temporário apenas com os índices de 0 até o tamanho de vPlats
     std::vector<int> indicesDisponiveis;
-        for (size_t i = 0; i < vPlats.size(); i++) {
-            indicesDisponiveis.push_back(static_cast<int>(i));
-        }
+    for (size_t i = 0; i < plats.size(); i++) {
+        indicesDisponiveis.push_back(static_cast<int>(i));
+    }
 
-    // Sorteia os espinhos
     for(int i = 0; i < quantidadeEspinhos; i++){
-        // Sorteia um número baseado em quantas opções AINDA restam
         int posicaoSorteio = rand() % indicesDisponiveis.size();
-        
-        // Pega o índice real da plataforma correspondente àquela posição
         int indiceDaPlataforma = indicesDisponiveis[posicaoSorteio];
-        
-        // Remove essa opção da lista de disponíveis (para não ser sorteada de novo)
         indicesDisponiveis.erase(indicesDisponiveis.begin() + posicaoSorteio);
 
-        // Acessa a plataforma sorteada
-        Plataforma* platEscolhida = vPlats[indiceDaPlataforma];
+        Plataforma* platEscolhida = plats[indiceDaPlataforma];
 
         CoordF p = platEscolhida->getPos();
         p.x = p.x + (platEscolhida->getTam().x / 2);
         p.y = p.y - 40;
         
         Espinho* pEsp = new Espinho(p);
-        vObstaculo.push_back(pEsp);
+        pGC->adicionarObstaculo(pEsp); // <-- Mudança aqui
     }
 }
-void Fase::atualizar(float dt){
+void Fase::atualizar(float dt) {
     pJog->update(dt);
     pJog->executar();
 
-    for(it=vEntidades.begin();it!=vEntidades.end();it++){
-        (*it)->olhar(pJog);
-        (*it)->danificar(pJog);
-        (*it)->update(dt);
-    }
-
-    for(itP=vPlats.begin();itP!=vPlats.end();itP++){
-        (*itP)->obstruir(pJog);
-        for(it=vEntidades.begin();it!=vEntidades.end();it++){
-            (*itP)->obstruir(*it);
+    std::vector<Inimigo*>& inis = pGC->getInimigos();
+        for (size_t i = 0; i < inis.size(); i++) {
+            inis[i]->olhar(pJog);
+            inis[i]->danificar(pJog); // <-- DEVOLVA ESTA LINHA AQUI
+            inis[i]->update(dt);
         }
-    }
-    /*
-    for(itO=vObstaculo.begin();itO!=vObstaculo.end();itO++){
-        (it*)->executar();
-    }*/
 
-    if(pLim){
+    // 1º RESOLVE DANO E EMPURRÕES (Armadilhas e Inimigos)
+    // Se o espinho jogar o boneco um pouco pra baixo, não tem problema...
+    pGC->tratarColisoesJogObstaculo();
+    pGC->tratarColisoesJogInimigo();
+    
+    // 2º RESOLVE O CHÃO (Plataformas)
+    // ... Porque logo em seguida a plataforma empurra o boneco de volta pra cima!
+    pGC->tratarColisoesJogPlataforma();
+    pGC->tratarColisoesInimigoPlataforma();
+
+    if (pLim) {
         pLim->executar(pJog);
     }
 
-    // roda a logica especifica de cada fase (ataques, comportamento dos inimigos, etc.)
     executar();
 }
 
-void Fase::renderizar(){
+void Fase::renderizar() {
     pGraphicM->clear();
     pGraphicM->seguirCamera(pJog->getPos(), CoordF(4000, 1080));
 
-    if(fundo){ fundo->render(); }
+    if (fundo) { fundo->render(); }
 
-    for(itP=vPlats.begin();itP!=vPlats.end();itP++){
-        //(*itP)->renderHitbox();
-        (*itP)->render();
+    std::vector<Plataforma*>& plats = pGC->getPlataformas();
+    for (size_t i = 0; i < plats.size(); i++) {
+        //plats[i]->renderHitbox();
+        plats[i]->render();
         
     }
 
-    //pJog->renderHitbox();
     pJog->render();
-    if(pJog->getAtaque()!=NULL){ pJog->getAtaque()->render(); }
+    if (pJog->getAtaque() != NULL) { pJog->getAtaque()->render(); }
 
-    for(it=vEntidades.begin();it!=vEntidades.end();it++){
-        //(*it)->renderHitbox();
-        (*it)->render();
-        if((*it)->getAtaque()!=NULL){ (*it)->getAtaque()->render(); }
+    std::vector<Inimigo*>& inis = pGC->getInimigos();
+    for (size_t i = 0; i < inis.size(); i++) {
+        inis[i]->render();
+        if (inis[i]->getAtaque() != NULL) { inis[i]->getAtaque()->render(); }
     }
-    for(itO=vObstaculo.begin();itO!=vObstaculo.end();itO++){
-        (*itO)->render();
+
+    std::vector<Obstaculo*>& obs = pGC->getObstaculos();
+    for (size_t i = 0; i < obs.size(); i++) {
+        obs[i]->render();
     }
 
     pGraphicM->usarViewPadrao();

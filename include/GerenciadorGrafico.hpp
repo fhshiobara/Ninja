@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 #include "VectorTL.hpp"
 
+
 namespace Gerenciadores{
         
     class GerenciadorGrafico{

@@ -24,8 +24,8 @@ Plataforma::Plataforma(CoordF p,CoordF t):ativa(true),terra(NULL){
     this->setTam(t);
     this->setPos(p);
     hitbox = new sf::RectangleShape;
-    hitbox->setSize(sf::Vector2f(t.x+150,470));
-    hitbox->setPosition(p.x-36, p.y-60);
+    hitbox->setSize(sf::Vector2f(t.x+20,470));
+    hitbox->setPosition(p.x+t.x, p.y);
     hitbox->setOrigin(0.f,0.f);
     hitbox->setOutlineColor(sf::Color::Green);
     hitbox->setOutlineThickness(0.5);

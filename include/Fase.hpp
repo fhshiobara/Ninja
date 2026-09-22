@@ -21,19 +21,11 @@
 
 class Fase{
 protected:
-    std::vector<Inimigo*> vEntidades;
-    std::vector<Inimigo*>::iterator it;
     Gerenciadores::GerenciadorColisoes* pGC;
     SingleFrameAnimation* fundo;
-    std::vector<Plataforma*> vPlats;
-    std::vector<Plataforma*>::iterator itP;
-    
-    std::vector<Obstaculo*> vObstaculo;
-    std::vector<Obstaculo*>::iterator itO;
     Jogador* pJog;
     Limites* pLim;
     sf::Clock relogio;
-
 
 
 public:

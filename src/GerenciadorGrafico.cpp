@@ -8,6 +8,7 @@
 
 #include "GerenciadorGrafico.hpp"
 
+
 namespace Gerenciadores{
     GerenciadorGrafico* GerenciadorGrafico::instance = NULL;
 

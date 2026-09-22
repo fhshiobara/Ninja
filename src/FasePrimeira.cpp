@@ -15,16 +15,16 @@ FasePrimeira::FasePrimeira():numMagos(3){
 
 FasePrimeira::~FasePrimeira(){}
 
-void FasePrimeira::executar(){
-    for(it=vEntidades.begin();it!=vEntidades.end();it++){
-        (*it)->executar();
+void FasePrimeira::executar() {
+    std::vector<Inimigo*>& inis = pGC->getInimigos();
+    for (size_t i = 0; i < inis.size(); i++) {
+        inis[i]->executar();
     }
 }
 
-void FasePrimeira::criarInimigos(){
-    for(int i=0;i<numMagos;i++){
-        Mago* pMago = new Mago(CoordF(900+rand()%3100,690));
-        vEntidades.push_back(pMago);
+void FasePrimeira::criarInimigos() {
+    for (int i = 0; i < numMagos; i++) {
+        Mago* pMago = new Mago(CoordF(900 + rand() % 3100, 690));
+        pGC->adicionarInimigo(pMago); // <-- Manda para o gerenciador em vez de vEntidades
     }
 }
-
