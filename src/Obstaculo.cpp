@@ -9,7 +9,8 @@
 
 Obstaculo::Obstaculo():danoso(false),sprite(NULL){}
 
-Obstaculo::~Obstaculo(){}
+Obstaculo::~Obstaculo(){
+}
 
 bool Obstaculo::getDanoso(){
     return danoso;

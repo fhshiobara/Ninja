@@ -17,9 +17,18 @@ Espinho::Espinho(CoordF p):afiado(1){
     id = 4;
     this->setPos(p);
     pos.y = pos.y-40;
+    pos.x = pos.x+20;
     danoso = true;
-    sprite = new SingleFrameAnimation("../assets/Telas/espinhospequenos.png",CoordF(p),CoordF(200,70), 1.0);
-    this->setTam(CoordF(250.f,100.f));
+    sprite = new SingleFrameAnimation("../assets/Telas/espinhospequenos.png",CoordF(p),CoordF(200,50), 1.0);
+    this->setTam(CoordF(250.f,50.f));
+    /*
+    hitbox = new sf::RectangleShape;
+    hitbox->setSize(sf::Vector2f(200,50));
+    hitbox->setOrigin(0,0);
+    hitbox->setPosition(p.x+tam.x/2,p.y+800);
+    
+    hitbox->setFillColor(sf::Color::Green);
+     */
 }
 
 Espinho::~Espinho(){

@@ -135,7 +135,7 @@ void Fase::atualizar(float dt) {
             inis[i]->danificar(pJog); // <-- DEVOLVA ESTA LINHA AQUI
             inis[i]->update(dt);
         }
-
+    executar();
     // 1º RESOLVE DANO E EMPURRÕES (Armadilhas e Inimigos)
     // Se o espinho jogar o boneco um pouco pra baixo, não tem problema...
     pGC->tratarColisoesJogObstaculo();
@@ -150,7 +150,7 @@ void Fase::atualizar(float dt) {
         pLim->executar(pJog);
     }
 
-    executar();
+    
 }
 
 void Fase::renderizar() {
@@ -177,6 +177,7 @@ void Fase::renderizar() {
 
     std::vector<Obstaculo*>& obs = pGC->getObstaculos();
     for (size_t i = 0; i < obs.size(); i++) {
+        obs[i]->renderHitbox();
         obs[i]->render();
     }
 
