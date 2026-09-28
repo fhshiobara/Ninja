@@ -24,6 +24,7 @@ private:
     GerenciadorColisoes();
     static Gerenciadores::GerenciadorColisoes* instance;
     GerenciadorGrafico* pGG;
+    bool colisaoDebug;
 
     // Quem CRIA e DESTROI esses objetos continua sendo a Fase (e FasePrimeira);
     // aqui a gente so guarda os ponteiros pra poder checar a colisao entre eles
@@ -56,6 +57,8 @@ public:
     std::vector<Inimigo*>& getInimigos();
     std::vector<Obstaculo*>& getObstaculos();
     std::vector<Plataforma*>& getPlataformas();
+    bool houveColisaoDebug();
+    void resetarColisaoDebug();
 
     // Esvazia os vetores de PONTEIROS guardados aqui - NAO deleta os objetos.
     // A memoria continua sendo responsabilidade de quem criou (Fase). Chamar

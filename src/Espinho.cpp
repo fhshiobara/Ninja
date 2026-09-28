@@ -30,6 +30,7 @@ Espinho::~Espinho(){
 }
 
 void Espinho::obstruir(Personagem* pJog){
+    pJog->tomarDano();
     
 }
 

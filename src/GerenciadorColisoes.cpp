@@ -16,14 +16,20 @@ namespace Gerenciadores {
 GerenciadorColisoes* GerenciadorColisoes::instance = nullptr;
 
 // Construtor Privado
-GerenciadorColisoes::GerenciadorColisoes() : pJog(nullptr) {
+GerenciadorColisoes::GerenciadorColisoes()
+    : pJog(nullptr), colisaoDebug(false) {
 }
 
 // Destrutor
 GerenciadorColisoes::~GerenciadorColisoes() {
     limpar();
 }
-
+bool GerenciadorColisoes::houveColisaoDebug() {
+    return colisaoDebug;
+}
+void GerenciadorColisoes::resetarColisaoDebug() {
+    colisaoDebug = false;
+}
 // Método Singleton para recuperar a única instância
 GerenciadorColisoes* GerenciadorColisoes::getInstance() {
     if (instance == nullptr) {
@@ -116,9 +122,12 @@ void GerenciadorColisoes::tratarColisoesJogInimigo() {
                 
                 // Checa a sobreposição dos centros usando a sua função AABB
                 if (sobrepondo(posJog, tamJog, posAtk, tamAtk)) {
-                    // Aplica o dano ao jogador
-                    pJog->tomarDano();
-                    std::cout<<"colidiu com ataque"<<std::endl;
+                    if(pJog->getDefendendo()){
+                        //aqui preciso fazer como stunnar o inimigo
+                    }else{
+                        colisaoDebug = true;
+                        pJog->tomarDano();
+                    }
                 }
             }
         }
@@ -139,11 +148,16 @@ void GerenciadorColisoes::tratarColisoesJogObstaculo() {
             CoordF tamObs = pObs->getTam();
             
             // Checa a sobreposição do jogador com a hitbox do obstáculo
-            if (sobrepondo(posJog, tamJog,CoordF(posObs.x+80,posObs.y), CoordF(tamObs.x-90,tamObs.y))) {
-                // Como Obstaculo implementa obstruir(Personagem*), basta passar o jogador.
-                // O próprio obstáculo cuida se é espinho (dano) ou parede (impedir movimento).
+            if (sobrepondo(
+                    posJog,
+                    tamJog,
+                    CoordF(posObs.x + 80, posObs.y),
+                    CoordF(tamObs.x - 90, tamObs.y)
+                ))
+            {
+                colisaoDebug = true;
                 pObs->obstruir(pJog);
-                std::cout<<"colidiu com espinho"<<std::endl;
+            }
                 
             }
         }
@@ -171,6 +185,7 @@ void GerenciadorColisoes::tratarColisoesInimigoPlataforma() {
             }
         }
     }
-}
+
+
 
 } // Fim namespace Gerenciadores

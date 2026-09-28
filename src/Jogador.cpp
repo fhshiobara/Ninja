@@ -28,6 +28,7 @@ Jogador::~Jogador(){}
 
 void Jogador::executar(){
     nochao = false;
+    tomandoDano = false;
 
     if(this->getSubindo()){
         this->mover();
@@ -66,7 +67,11 @@ void Jogador::update(float dt){
         estadoAtual = Animation_ID::walk;
     } else if(!nochao){
         estadoAtual = Animation_ID::jump;
-    }else {
+    }
+    else if(tomandoDano){
+        estadoAtual = Animation_ID::hurt;
+    }
+    else {
         estadoAtual = Animation_ID::idle;
     }
 
@@ -83,4 +88,12 @@ void Jogador::defender(){
 
 void Jogador::setDefendendo(bool a){
     defendendo = a;
+}
+bool Jogador::getDefendendo(){return defendendo;}
+
+void Jogador::tomarDano(){
+    if(!tomandoDano){
+        tomandoDano = true;
+        this->pular();
+    }
 }

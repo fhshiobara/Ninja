@@ -27,6 +27,8 @@ public:
     bool golpeAereo();
     void defender();
     void setDefendendo(bool a);
+    bool getDefendendo();
+    void tomarDano()override;
     
 };
 

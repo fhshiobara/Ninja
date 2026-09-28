@@ -25,11 +25,12 @@ protected:
     bool andandoDireita;
     bool andandoEsquerda;
     float tempoAtaque;
+    bool tomandoDano;
 public:
     Personagem();
     ~Personagem();
     
-    void tomarDano();
+    virtual void tomarDano();
     
     virtual void executar()=0;
     
