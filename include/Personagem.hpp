@@ -53,9 +53,9 @@ public:
 
     // gerenciamento do Ataque "estático" (alocado uma vez, ligado por ponteiro,
     // e só ativado/reposicionado a cada golpe — ver Ataque.hpp)
-    void criarAtaque(CoordF tamanhoAtaque, float duracao);
     void atualizarAtaque(float dt);
     Ataque* getAtaque();
+    void criarAtaque(CoordF tamanhoAtaque, float duracao, float atraso = 0.f);
 
     
 };

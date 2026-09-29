@@ -20,7 +20,7 @@ Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f),flg(false){
     this->nochao = false;
     this->setTam(CoordF(60.f,150.f));
     hitbox->setSize(sf::Vector2f(tam.x,tam.y));
-    this->criarAtaque(CoordF(120.f,80.f), 6 * 0.15f);
+    this->criarAtaque(CoordF(120.f,80.f), 6 * 0.15f, 4 * 0.15f);
     
 }
 
@@ -36,7 +36,7 @@ Mago::Mago(CoordF p):experiencia(2),TempoDash(5.f),Dash(0.f){
     this->nochao = false;
     this->setTam(CoordF(60.f,150.f));
     hitbox->setSize(sf::Vector2f(tam.x,tam.y));
-    this->criarAtaque(CoordF(120.f,80.f), 6 * 0.15f);
+    this->criarAtaque(CoordF(120.f,80.f), 6 * 0.15f, 4 * 0.15f);
 }
 Mago::~Mago(){}
 

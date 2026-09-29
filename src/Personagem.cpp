@@ -100,15 +100,6 @@ void Personagem::pular(){
     this->iniciarSubida(0.50f,1.f);
 }
 
-void Personagem::criarAtaque(CoordF tamanhoAtaque, float duracao){
-    // aloca o Ataque uma única vez (elemento "estático" do personagem).
-    // Cada subclasse chama isso no seu construtor, escolhendo o tamanho da
-    // própria hitbox de ataque, e a partir daí ele só é ativado/desativado.
-    if(atk==NULL){
-        atk = new Ataque(tamanhoAtaque, duracao);
-    }
-}
-
 void Personagem::atualizarAtaque(float dt){
     if(atacando){
         tempoAtaque -= dt;
@@ -126,4 +117,10 @@ void Personagem::atualizarAtaque(float dt){
 
 Ataque* Personagem::getAtaque(){
     return atk;
+}
+
+void Personagem::criarAtaque(CoordF tamanhoAtaque, float duracao, float atraso){
+    if(atk==NULL){
+        atk = new Ataque(tamanhoAtaque, duracao, atraso);
+    }
 }

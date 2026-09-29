@@ -7,7 +7,7 @@
 
 #include "Ataque.hpp"
 
-Ataque::Ataque(CoordF tamanho, float duracao):tempo(0.f),duracaoBase(duracao),ativo(false){
+Ataque::Ataque(CoordF tamanho, float duracao, float atraso):tempo(0.f),duracaoBase(duracao),atraso(atraso),decorrido(0.f),ativo(false){
     // tam e pos são os mesmos atributos que Jogador/Mago usam,
     // então renderHitbox() e getPos()/getTam() já funcionam de graça.
     this->setTam(tamanho);
@@ -29,6 +29,7 @@ void Ataque::ativar(CoordF posPersonagem, CoordF tamanhoPersonagem, bool olhando
 
     this->setPos(novaPos);
     tempo = duracaoBase;
+    decorrido = 0.f; 
     ativo = true;
 }
 
@@ -37,11 +38,11 @@ void Ataque::desativar(){
 }
 
 bool Ataque::estaAtivo()const{
-    return ativo;
+    return ativo && decorrido >= atraso;   // só causa dano depois da preparação
 }
-
 void Ataque::update(float dt){
     if(ativo){
+        decorrido += dt;    // NOVO
         tempo -= dt;
         if(tempo <= 0.f){
             ativo = false;
@@ -54,11 +55,14 @@ void Ataque::executar(){
 }
 
 void Ataque::render(){
-    if(ativo){
+    if(estaAtivo()){
         this->renderHitbox();
     }
 }
 
 bool Ataque::acabou()const{
     return !ativo;
+}
+bool Ataque::emPreparacao()const{
+    return ativo && decorrido < atraso;
 }
