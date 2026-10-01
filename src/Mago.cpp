@@ -42,11 +42,14 @@ Mago::~Mago(){}
 
 void Mago::update(float dt){
     this->atualizarAtaque(dt);
+    this->atualizarStun(dt);
 
     this->atualizarSubida(dt);
 
-    Animation_ID estadoAtual;
-    if(this->estaAtacando()){
+    Animation_ID estadoAtual = Animation_ID::idle;
+    if(this->estaStunado()){
+        estadoAtual = Animation_ID::idle;
+    }else if(this->estaAtacando()){
         estadoAtual = Animation_ID::attack2;
         flg = olhandoesquerda;
     }else if(!ativo){
@@ -66,6 +69,7 @@ void Mago::update(float dt){
 
 
 void Mago::danificar(Jogador* pJog){
+    if(estaStunado()) return;   // stunnado nao ativa nem ataca
     int aux;
     float dx = pos.x - pJog->getPos().x;
     float dy = pos.y - pJog->getPos().y;
@@ -91,6 +95,16 @@ void Mago::danificar(Jogador* pJog){
 
 
 void Mago::executar(){
+    if(estaStunado()){
+        // imovel: so a gravidade continua valendo (pra nao ficar flutuando)
+        andandoDireita = false;
+        andandoEsquerda = false;
+        vel.x = 0.f;
+        nochao = false;
+        this->gravidade();
+        return;
+    }
+
     if(atacando){
         andandoDireita = false;
         andandoEsquerda = false;

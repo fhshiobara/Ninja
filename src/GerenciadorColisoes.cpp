@@ -123,7 +123,7 @@ void GerenciadorColisoes::tratarColisoesJogInimigo() {
                 // Checa a sobreposição dos centros usando a sua função AABB
                 if (sobrepondo(posJog, tamJog, posAtk, tamAtk)) {
                     if(pJog->getDefendendo()){
-                        //aqui preciso fazer como stunnar o inimigo
+                        pIni->stunnar();
                     }else{
                         colisaoDebug = true;
                         pJog->tomarDano();

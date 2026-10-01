@@ -6,34 +6,57 @@
 //
 
 #include "Efeitos.hpp"
-Efeitos::Efeitos():tempoDecorrido(0.f), ativo(false),duracao(3.f){
-    id =5;
+
+Efeitos::Efeitos(float duracao):duracao(duracao),tempoRestante(0.f),ativo(false),offsetY(20.f){
+    id = 5;
     animacao.addNewAnimation(Animation_ID::idle,"../assets/Effect/statusfx_stunned_sheet.png",8);
 }
 
 Efeitos::~Efeitos(){}
 
-void Efeitos::executar(){
-    
+void Efeitos::ativar(CoordF posAlvo, CoordF tamAlvo){
+    if(!ativo){                    // se ja esta stunnado, nao reinicia o tempo
+        ativo = true;
+        tempoRestante = duracao;
+    }
+    seguir(posAlvo, tamAlvo);
+}
+
+void Efeitos::desativar(){
+    ativo = false;
+    tempoRestante = 0.f;
+}
+
+void Efeitos::seguir(CoordF posAlvo, CoordF tamAlvo){
+    // pos e o CENTRO (mesma convencao de Entidade): fica logo acima da hitbox do alvo
+    pos = CoordF(posAlvo.x, posAlvo.y - tamAlvo.y/2.f - offsetY+100);
 }
 
 void Efeitos::update(float dt){
-    Animation_ID estado;
     if(ativo){
-        estado=Animation_ID::idle;
-        animacao.update(estado, olhandoesquerda, pos, dt);
+        tempoRestante -= dt;
+        if(tempoRestante <= 0.f){
+            desativar();
+            return;
+        }
+        animacao.update(Animation_ID::idle, olhandoesquerda, pos, dt);
     }
-    
-    
 }
 
-void Efeitos::setAtivo(bool a){
-    ativo = a;
+void Efeitos::executar(){
+
 }
 
-void Efeitos::ativar(){
-    if(!ativo){
-        ativo = true;
-        tempoDecorrido = 8* 0.15;
+void Efeitos::render(){
+    if(ativo){
+        animacao.render();
     }
+}
+
+bool Efeitos::estaAtivo() const{
+    return ativo;
+}
+
+void Efeitos::setDuracao(float d){
+    duracao = d;
 }

@@ -173,6 +173,7 @@ void Fase::renderizar() {
     for (size_t i = 0; i < inis.size(); i++) {
         inis[i]->render();
         if (inis[i]->getAtaque() != NULL) { inis[i]->getAtaque()->render(); }
+        if (inis[i]->getStun() != NULL) { inis[i]->getStun()->render(); }
     }
 
     std::vector<Obstaculo*>& obs = pGC->getObstaculos();
