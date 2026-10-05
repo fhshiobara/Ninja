@@ -151,7 +151,7 @@ void GerenciadorColisoes::tratarColisoesJogObstaculo() {
             if (sobrepondo(
                     posJog,
                     tamJog,
-                    CoordF(posObs.x + 80, posObs.y),
+                    CoordF(posObs.x + 80, posObs.y+50),
                     CoordF(tamObs.x - 90, tamObs.y)
                 ))
             {

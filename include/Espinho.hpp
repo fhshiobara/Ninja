@@ -18,7 +18,7 @@ protected:
     
 public:
     Espinho();
-    Espinho(CoordF p);
+    Espinho(CoordF p,int a);
     ~Espinho();
     void obstruir(Personagem* pJog);
     void executar();

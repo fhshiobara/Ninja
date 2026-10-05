@@ -56,6 +56,8 @@ public:
     void atualizarAtaque(float dt);
     Ataque* getAtaque();
     void criarAtaque(CoordF tamanhoAtaque, float duracao, float atraso = 0.f);
+    
+    bool getVivo();
 
     
 };

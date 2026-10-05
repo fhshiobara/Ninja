@@ -6,7 +6,7 @@
 //
 
 #include "Personagem.hpp"
-Personagem::Personagem():hp(3),vivo(true),nochao(true),subindo(false),tempoSubida(0.f),atacando(false),andandoDireita(false),andandoEsquerda(false),tempoAtaque(0.f),atk(NULL),tomandoDano(false){
+Personagem::Personagem():hp(100),vivo(true),nochao(true),subindo(false),tempoSubida(0.f),atacando(false),andandoDireita(false),andandoEsquerda(false),tempoAtaque(0.f),atk(NULL),tomandoDano(false){
     
 }
 
@@ -123,4 +123,8 @@ void Personagem::criarAtaque(CoordF tamanhoAtaque, float duracao, float atraso){
     if(atk==NULL){
         atk = new Ataque(tamanhoAtaque, duracao, atraso);
     }
+}
+
+bool Personagem::getVivo(){
+    return vivo;
 }

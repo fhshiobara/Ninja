@@ -70,23 +70,25 @@ void Mago::update(float dt){
 
 void Mago::danificar(Jogador* pJog){
     if(estaStunado()) return;   // stunnado nao ativa nem ataca
-    int aux;
-    float dx = pos.x - pJog->getPos().x;
-    float dy = pos.y - pJog->getPos().y;
-    float dist = sqrt(dx*dx + dy*dy);
-    if(dist<300.f){
-        ativo = true;
-    }
-    if(dist<150.f){
-        if(!atacando){
-            aux = rand()%2;
-            if(aux==0){
-                ataque2();
-            }else{
-                atacar();
-            }
+    if(pJog->getVivo()){
+        int aux;
+        float dx = pos.x - pJog->getPos().x;
+        float dy = pos.y - pJog->getPos().y;
+        float dist = sqrt(dx*dx + dy*dy);
+        if(dist<300.f){
+            ativo = true;
         }
-        
+        if(dist<150.f){
+            if(!atacando){
+                aux = rand()%2;
+                if(aux==0){
+                    ataque2();
+                }else{
+                    atacar();
+                }
+            }
+            
+        }
     }
     
     

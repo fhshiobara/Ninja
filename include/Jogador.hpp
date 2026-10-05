@@ -16,6 +16,7 @@ protected:
     int pontos;
     bool defendendo;
     float tempoDefesa;
+    int aux;
 
 public:
     Jogador();

@@ -13,13 +13,20 @@ Espinho::Espinho():afiado(1){
     danoso = true;
     sprite = new SingleFrameAnimation("../assets/Telas/espinhos.png",CoordF(800,700),CoordF(300,200), 1.0);
 }
-Espinho::Espinho(CoordF p):afiado(1){
+Espinho::Espinho(CoordF p,int a){
     id = 4;
+    afiado =a;
     this->setPos(p);
     pos.y = pos.y-40;
     pos.x = pos.x+20;
     danoso = true;
-    sprite = new SingleFrameAnimation("../assets/Telas/espinhospequenos.png",CoordF(p),CoordF(200,50), 1.0);
+    if(afiado==0){
+        sprite = new SingleFrameAnimation("../assets/Telas/espinhospequenos.png",CoordF(p),CoordF(200,50), 1.0);
+    }
+    else{
+        sprite = new SingleFrameAnimation("../assets/Telas/espinhosvermelhos.png",CoordF(p),CoordF(200,50), 1.0);
+
+    }
     this->setTam(CoordF(250.f,50.f));
     /*
     hitbox = new sf::RectangleShape;

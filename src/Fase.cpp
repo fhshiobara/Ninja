@@ -8,8 +8,13 @@
 #include "Fase.hpp"
 
 
-Fase::Fase(): pGC(Gerenciadores::GerenciadorColisoes::getInstance()), fundo(NULL), pJog(NULL), pLim(NULL) {
+Fase::Fase(): pGC(Gerenciadores::GerenciadorColisoes::getInstance()), fundo(NULL), pJog(NULL), pLim(NULL),morte(NULL) {
     pLim = new Limites();
+    morte = new sf::RectangleShape;
+    morte->setSize(sf::Vector2f(4000,1080));
+    morte->setOrigin(0,0);
+    morte->setPosition(0.0,0.0);
+    morte->setFillColor(sf::Color(255, 0, 0, 80));
 }
 
 Fase::~Fase() {
@@ -40,6 +45,8 @@ Fase::~Fase() {
 
     delete fundo;
     fundo = NULL;
+    delete morte;
+    morte = NULL;
 }
 
 void Fase::criarCenario(){
@@ -121,7 +128,7 @@ void Fase::criarObstaculos() {
         p.x = p.x + (platEscolhida->getTam().x / 2);
         p.y = p.y - 40;
         
-        Espinho* pEsp = new Espinho(p);
+        Espinho* pEsp = new Espinho(p,rand()%2);
         pGC->adicionarObstaculo(pEsp); // <-- Mudança aqui
     }
 }
@@ -180,6 +187,9 @@ void Fase::renderizar() {
     for (size_t i = 0; i < obs.size(); i++) {
         obs[i]->renderHitbox();
         obs[i]->render();
+    }
+    if(!pJog->getVivo()){
+        pGraphicM->render(morte);
     }
 
     pGraphicM->usarViewPadrao();

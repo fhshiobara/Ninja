@@ -54,13 +54,17 @@ Efeitos* Inimigo::getStun(){
 }
 
 void Inimigo::olhar(Jogador* pJog){
-    if(!atacando && !stunado){
-        float dx = pos.x - pJog->getPos().x;
-        if(dx<0){
-            olhandoesquerda = false;
+    if(pJog->getVivo()){
+        if(!atacando && !stunado){
+            float dx = pos.x - pJog->getPos().x;
+            if(dx<0){
+                olhandoesquerda = false;
+            }
+            else{
+                olhandoesquerda = true;
+            }
         }
-        else{
-            olhandoesquerda = true;
-        }
+    }else{
+        return;
     }
 }

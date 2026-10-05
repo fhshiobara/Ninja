@@ -26,6 +26,7 @@ protected:
     Jogador* pJog;
     Limites* pLim;
     sf::Clock relogio;
+    sf::RectangleShape* morte;
 
 
 public:
