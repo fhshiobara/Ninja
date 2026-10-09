@@ -22,5 +22,6 @@ public:
     
     void executar();
     void criarInimigos();
+    void criarPortal();
 };
 #endif /* FasePrimeira_hpp */
