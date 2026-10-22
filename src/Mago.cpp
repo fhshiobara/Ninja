@@ -35,6 +35,7 @@ Mago::Mago(CoordF p):experiencia(2),TempoDash(5.f),Dash(0.f){
     animacao.addNewAnimation(Animation_ID::idle,"../assets/Mago/Idle.png",8);
     animacao.addNewAnimation(Animation_ID::jump,"../assets/Mago/Jump.png",2);
     animacao.addNewAnimation(Animation_ID::hurt,"../assets/Mago/Hurt.png",3);
+    hp = 1;
     pos = CoordF(p);
     this->nochao = false;
     this->setTam(CoordF(60.f,150.f));
@@ -76,8 +77,11 @@ void Mago::update(float dt){
         ativo = false;
         estadoAtual = Animation_ID::death;
         aux++;
+        this->frearHorizontal();
         if(aux<=130){
             animacao.update(estadoAtual, olhandoesquerda, pos, dt);
+            this->gravidade();
+            
 
         }
         

@@ -74,6 +74,10 @@ void Inimigo::tomarDano(){
         hp--;
         if(hp<=0){
             vivo = false;
+            if(atk){
+                atk->desativar();
+            }
+            
         }
         //this->pular();
     }
