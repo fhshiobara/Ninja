@@ -8,7 +8,7 @@
 #include "Mago.hpp"
 #include <math.h>
 
-Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f),flg(false){
+Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f),flg(false),aux(0){
     id = 3;
     animacao.addNewAnimation(Animation_ID::walk,"../assets/Mago/Run.png",8);
     animacao.addNewAnimation(Animation_ID::attack,"../assets/Mago/Attack1.png",8);
@@ -20,6 +20,7 @@ Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f),flg(false){
     this->nochao = false;
     this->setTam(CoordF(60.f,150.f));
     hitbox->setSize(sf::Vector2f(tam.x,tam.y));
+    hp = 2;
     this->criarAtaque(CoordF(120.f,80.f), 6 * 0.15f, 4 * 0.15f);
     
 }
@@ -41,29 +42,40 @@ Mago::Mago(CoordF p):experiencia(2),TempoDash(5.f),Dash(0.f){
 Mago::~Mago(){}
 
 void Mago::update(float dt){
-    this->atualizarAtaque(dt);
-    this->atualizarStun(dt);
-
-    this->atualizarSubida(dt);
-
-    Animation_ID estadoAtual = Animation_ID::idle;
-    if(this->estaStunado()){
-        estadoAtual = Animation_ID::idle;
-    }else if(this->estaAtacando()){
-        estadoAtual = Animation_ID::attack2;
-        flg = olhandoesquerda;
-    }else if(!ativo){
-        estadoAtual = Animation_ID::idle;
-    }else if(estaAndando()){
-        estadoAtual = Animation_ID::walk;
-    } else if(!nochao){
-        estadoAtual = Animation_ID::jump;
-    }
-    if(atacando){
-        animacao.update(estadoAtual,flg,pos,dt);
+    Animation_ID estadoAtual;
+    if(vivo){
+        this->atualizarAtaque(dt);
+        this->atualizarStun(dt);
         
+        this->atualizarSubida(dt);
+        
+        
+        if(this->estaStunado()){
+            estadoAtual = Animation_ID::idle;
+        }else if(this->estaAtacando()){
+            estadoAtual = Animation_ID::attack2;
+            flg = olhandoesquerda;
+        }else if(!ativo){
+            estadoAtual = Animation_ID::idle;
+        }else if(estaAndando()){
+            estadoAtual = Animation_ID::walk;
+        } else if(!nochao){
+            estadoAtual = Animation_ID::jump;
+        }
+        if(atacando){
+            animacao.update(estadoAtual,flg,pos,dt);
+            
+        }else{
+            animacao.update(estadoAtual, olhandoesquerda, pos, dt);
+        }
     }else{
-        animacao.update(estadoAtual, olhandoesquerda, pos, dt);
+        estadoAtual = Animation_ID::death;
+        aux++;
+        if(aux<=220){
+            animacao.update(estadoAtual, olhandoesquerda, pos, dt);
+
+        }
+        
     }
 }
 

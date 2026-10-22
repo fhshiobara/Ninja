@@ -130,6 +130,17 @@ void GerenciadorColisoes::tratarColisoesJogInimigo() {
                     }
                 }
             }
+        }if (pJog){
+            Ataque* atk =pJog->getAtaque();
+            if(atk&&atk->estaAtivo()){
+                CoordF posAtk = atk->getPos();
+                CoordF tamAtk = atk->getTam();
+                if(sobrepondo(pIni->getPos(),pIni->getTam(),posAtk,tamAtk)){
+                    colisaoDebug = true;
+                    pIni->tomarDano();
+                    //std::cout<<"inimigo tomou dano"<<std::endl;
+                }
+            }
         }
     }
 }

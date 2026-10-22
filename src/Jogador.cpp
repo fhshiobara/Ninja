@@ -66,10 +66,11 @@ void Jogador::update(float dt){
 
     Animation_ID estadoAtual;
     if(vivo){
-        if(defendendo){
-            estadoAtual=Animation_ID::defend;
-        }else if(tomandoDano){
+        if(tomandoDano){
             estadoAtual = Animation_ID::hurt;
+        }
+        else if(defendendo){
+            estadoAtual=Animation_ID::defend;
         }
         else if(golpeAereo()){
             estadoAtual = Animation_ID::attack;

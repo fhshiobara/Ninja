@@ -22,7 +22,7 @@ public:
     void danificar(Jogador* pJog)override;
     void executar()override;
     void update(float dt)override;
-    
+    void corrigir();
 };
 
 #endif /* Fenix_hpp */

@@ -46,10 +46,10 @@ void Fenix::update(float dt){
             estadoAtual = Animation_ID::attack;
         } else if(estaAndando()){
             estadoAtual = Animation_ID::walk;
-        }
+        }/*
         else if(!nochao){
             estadoAtual = Animation_ID::jump;
-        }
+        }*/
         
         else {
             estadoAtual = Animation_ID::idle;
@@ -68,48 +68,25 @@ void Fenix::update(float dt){
     }
     
 }
+
 void Fenix::executar(){
-    if(atacando){
-        andandoDireita = false;
-        andandoEsquerda = false;
-    }
-    else if(olhandoesquerda){
-        andandoDireita = false;
-        andandoEsquerda = ativo;
-    } else {
-        andandoEsquerda = false;
-        andandoDireita = ativo;
-    }
+    if(estaStunado()) return;
 
-    // isso precisa vir ANTES de zerar o nochao, senão pular() nunca funciona
-    if(andandoDireita || andandoEsquerda){
-        if(posAnt.x==pos.x && posAnt.y==pos.y){
-            this->pular();
-        }
-        posAnt = pos;
-    }
-
-    nochao = false;
-
-    if(this->getSubindo()){
-        this->mover();
-    } else {
-        this->gravidade();
-    }
-
-    if(andandoDireita){
-        olhandoesquerda = false;
-        this->vel.x = 1.f;
-        this->mover();
-    }
-    if(andandoEsquerda){
-        olhandoesquerda = true;
-        this->vel.x = -1.f;
-        this->mover();
-    }
+    // sem gravidade, sem pular, sem nochao
+    vel.x = olhandoesquerda ? -1.f : 1.f;
+   // vel.y = 0.f;// ou uma ondulação, ex.: sin(tempo) * 0.5f
+    this->mover();
+    //vel.y=0;
 }
 void Fenix::danificar(Jogador* pJog){
     //aq quero que se está em cima do jogador a ave de um dash pra baixo.
+    if((pJog->getPos().y<this->getPos().y)){
+        vel.y = -0.3;
+    }
+    else if(this->getPos().y+100<pJog->getPos().y){
+        vel.y=0.3f;
+    }//isso fez o negocio ficar senoidal, eu acho
+    //ta bom, lembra o suficiente um seno
 }
 
 
