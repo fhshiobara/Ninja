@@ -16,6 +16,7 @@ Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f),flg(false),aux(0){
     animacao.addNewAnimation(Animation_ID::death,"../assets/Mago/Death.png",7);
     animacao.addNewAnimation(Animation_ID::idle,"../assets/Mago/Idle.png",8);
     animacao.addNewAnimation(Animation_ID::jump,"../assets/Mago/Jump.png",2);
+    animacao.addNewAnimation(Animation_ID::hurt,"../assets/Mago/Hurt.png",3);
     pos = CoordF(800,300);
     this->nochao = false;
     this->setTam(CoordF(60.f,150.f));
@@ -49,8 +50,10 @@ void Mago::update(float dt){
         
         this->atualizarSubida(dt);
         
-        
-        if(this->estaStunado()){
+        if(tomandoDano){
+            estadoAtual = Animation_ID::hurt;
+        }
+        else if(this->estaStunado()){
             estadoAtual = Animation_ID::idle;
         }else if(this->estaAtacando()){
             estadoAtual = Animation_ID::attack2;
@@ -109,6 +112,7 @@ void Mago::danificar(Jogador* pJog){
 
 
 void Mago::executar(){
+    tomandoDano = false;
     if(estaStunado()){
         // imovel: so a gravidade continua valendo (pra nao ficar flutuando)
         andandoDireita = false;
