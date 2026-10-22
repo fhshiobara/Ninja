@@ -6,11 +6,13 @@
 //
 
 #include "FasePrimeira.hpp"
+#include "Portal.hpp"
 FasePrimeira::FasePrimeira():numMagos(3){
     criarCenario();
     criarPlataformas();
     criarInimigos();
     criarObstaculos();
+    criarPortal();
 }
 
 FasePrimeira::~FasePrimeira(){}
@@ -26,5 +28,14 @@ void FasePrimeira::criarInimigos() {
     for (int i = 0; i < numMagos; i++) {
         Mago* pMago = new Mago(CoordF(900 + rand() % 3100, 690));
         pGC->adicionarInimigo(pMago); // <-- Manda para o gerenciador em vez de vEntidades
+        Fenix* pFenix = new Fenix(CoordF(900 + rand() % 3100, 690));
+        pGC->adicionarInimigo(pFenix);
     }
+}
+
+void FasePrimeira::criarPortal(){
+    Portal* p = new Portal();
+    pGC->adicionarObstaculo(p);
+    
+    
 }

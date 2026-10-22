@@ -73,6 +73,9 @@ set(SOURCES
     
     src/Espinho.cpp
     src/Efeitos.cpp
+    src/Portal.cpp
+    src/Fenix.cpp
+    
     
     
     

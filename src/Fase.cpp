@@ -87,6 +87,9 @@ void Fase::tratarEventos(){
             else if(evento.key.code == sf::Keyboard::Space){
                 pJog->defender();
             }
+            if(evento.key.code == sf::Keyboard::Escape){
+                pGraphicM->closeWindow();
+            }
         }
         else if(evento.type == sf::Event::KeyReleased){
             if(evento.key.code == sf::Keyboard::Right){

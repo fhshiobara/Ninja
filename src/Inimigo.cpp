@@ -68,3 +68,17 @@ void Inimigo::olhar(Jogador* pJog){
         return;
     }
 }
+void Inimigo::tomarDano(){
+    if(!tomandoDano){
+        tomandoDano = true;
+        hp--;
+        if(hp<=0){
+            vivo = false;
+            if(atk){
+                atk->desativar();
+            }
+            
+        }
+        //this->pular();
+    }
+}

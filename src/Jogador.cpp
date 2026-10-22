@@ -23,7 +23,7 @@ Jogador::Jogador():pontos(0),defendendo(false),tempoDefesa(0.f),aux(0){
     this->nochao = false;
     this->setTam(CoordF(30.f,60.f));
     hitbox->setSize(sf::Vector2f(tam.x,tam.y));
-    this->criarAtaque(CoordF(40.f,50.f), 6 * 0.15f, 3 * 0.15f);}
+    this->criarAtaque(CoordF(60.f,60.f), 6 * 0.15f, 3 * 0.15f);}
 Jogador::~Jogador(){}
 
 
@@ -66,10 +66,11 @@ void Jogador::update(float dt){
 
     Animation_ID estadoAtual;
     if(vivo){
-        if(defendendo){
-            estadoAtual=Animation_ID::defend;
-        }else if(tomandoDano){
+        if(tomandoDano){
             estadoAtual = Animation_ID::hurt;
+        }
+        else if(defendendo){
+            estadoAtual=Animation_ID::defend;
         }
         else if(golpeAereo()){
             estadoAtual = Animation_ID::attack;

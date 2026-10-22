@@ -8,7 +8,7 @@
 #include "Mago.hpp"
 #include <math.h>
 
-Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f),flg(false){
+Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f),flg(false),aux(0){
     id = 3;
     animacao.addNewAnimation(Animation_ID::walk,"../assets/Mago/Run.png",8);
     animacao.addNewAnimation(Animation_ID::attack,"../assets/Mago/Attack1.png",8);
@@ -16,10 +16,12 @@ Mago::Mago():experiencia(2),TempoDash(5.f),Dash(0.f),flg(false){
     animacao.addNewAnimation(Animation_ID::death,"../assets/Mago/Death.png",7);
     animacao.addNewAnimation(Animation_ID::idle,"../assets/Mago/Idle.png",8);
     animacao.addNewAnimation(Animation_ID::jump,"../assets/Mago/Jump.png",2);
+    animacao.addNewAnimation(Animation_ID::hurt,"../assets/Mago/Hurt.png",3);
     pos = CoordF(800,300);
     this->nochao = false;
     this->setTam(CoordF(60.f,150.f));
     hitbox->setSize(sf::Vector2f(tam.x,tam.y));
+    hp = 2;
     this->criarAtaque(CoordF(120.f,80.f), 6 * 0.15f, 4 * 0.15f);
     
 }
@@ -32,6 +34,8 @@ Mago::Mago(CoordF p):experiencia(2),TempoDash(5.f),Dash(0.f){
     animacao.addNewAnimation(Animation_ID::death,"../assets/Mago/Death.png",7);
     animacao.addNewAnimation(Animation_ID::idle,"../assets/Mago/Idle.png",8);
     animacao.addNewAnimation(Animation_ID::jump,"../assets/Mago/Jump.png",2);
+    animacao.addNewAnimation(Animation_ID::hurt,"../assets/Mago/Hurt.png",3);
+    hp = 1;
     pos = CoordF(p);
     this->nochao = false;
     this->setTam(CoordF(60.f,150.f));
@@ -41,29 +45,46 @@ Mago::Mago(CoordF p):experiencia(2),TempoDash(5.f),Dash(0.f){
 Mago::~Mago(){}
 
 void Mago::update(float dt){
-    this->atualizarAtaque(dt);
-    this->atualizarStun(dt);
-
-    this->atualizarSubida(dt);
-
-    Animation_ID estadoAtual = Animation_ID::idle;
-    if(this->estaStunado()){
-        estadoAtual = Animation_ID::idle;
-    }else if(this->estaAtacando()){
-        estadoAtual = Animation_ID::attack2;
-        flg = olhandoesquerda;
-    }else if(!ativo){
-        estadoAtual = Animation_ID::idle;
-    }else if(estaAndando()){
-        estadoAtual = Animation_ID::walk;
-    } else if(!nochao){
-        estadoAtual = Animation_ID::jump;
-    }
-    if(atacando){
-        animacao.update(estadoAtual,flg,pos,dt);
+    Animation_ID estadoAtual;
+    if(vivo){
+        this->atualizarAtaque(dt);
+        this->atualizarStun(dt);
         
+        this->atualizarSubida(dt);
+        
+        if(tomandoDano){
+            estadoAtual = Animation_ID::hurt;
+        }
+        else if(this->estaStunado()){
+            estadoAtual = Animation_ID::idle;
+        }else if(this->estaAtacando()){
+            estadoAtual = Animation_ID::attack2;
+            flg = olhandoesquerda;
+        }else if(!ativo){
+            estadoAtual = Animation_ID::idle;
+        }else if(estaAndando()){
+            estadoAtual = Animation_ID::walk;
+        } else if(!nochao){
+            estadoAtual = Animation_ID::jump;
+        }
+        if(atacando){
+            animacao.update(estadoAtual,flg,pos,dt);
+            
+        }else{
+            animacao.update(estadoAtual, olhandoesquerda, pos, dt);
+        }
     }else{
-        animacao.update(estadoAtual, olhandoesquerda, pos, dt);
+        ativo = false;
+        estadoAtual = Animation_ID::death;
+        aux++;
+        this->frearHorizontal();
+        if(aux<=130){
+            animacao.update(estadoAtual, olhandoesquerda, pos, dt);
+            this->gravidade();
+            
+
+        }
+        
     }
 }
 
@@ -97,6 +118,7 @@ void Mago::danificar(Jogador* pJog){
 
 
 void Mago::executar(){
+    //tomandoDano = false;
     if(estaStunado()){
         // imovel: so a gravidade continua valendo (pra nao ficar flutuando)
         andandoDireita = false;
@@ -128,6 +150,7 @@ void Mago::executar(){
     }
 
     nochao = false;
+    tomandoDano = false;
 
     if(this->getSubindo()){
         this->mover();

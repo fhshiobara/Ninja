@@ -37,6 +37,7 @@ public:
     void atualizarStun(float dt);
     bool estaStunado() const;
     Efeitos* getStun();
+    void tomarDano()override;
     
 };
 #endif /* Inimigo_hpp */

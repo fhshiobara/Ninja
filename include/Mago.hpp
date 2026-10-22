@@ -17,6 +17,7 @@ protected:
     float TempoDash;
     float Dash;
     bool flg;
+    int aux;
 public:
     Mago();
     Mago(CoordF p);

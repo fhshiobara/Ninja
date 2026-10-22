@@ -18,6 +18,7 @@
 #include "Jogador.hpp"
 #include "Inimigo.hpp"
 #include "Espinho.hpp"
+#include "Fenix.hpp"
 
 class Fase{
 protected:
